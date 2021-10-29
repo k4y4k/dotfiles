@@ -1,0 +1,5 @@
+{
+  "codeLens.enable": false,
+  "tsserver.useBatchedBufferSync": true
+  , "coc.preferences.formatOnSaveFiletypes": ["rust"]
+} 
