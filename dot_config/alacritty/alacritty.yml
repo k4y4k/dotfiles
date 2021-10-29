@@ -1,0 +1,138 @@
+scrolling:
+  # maximum number of lines in the scrollback buffer. Specifying '0' will
+  # disable scrolling.
+  history: 10000
+
+  # Number of lines the viewport will move for every line scrolled when
+  # scrollback is enabled (history > 0).
+  multiplier: 3
+
+# Font configuration (changes require restart)
+font:
+  normal:
+    family: Courier Prime Code
+    style: Light
+
+  bold:
+    family: Courier Prime Code
+    style: Medium
+
+  # The italic font face
+  italic:
+    family: Courier Prime Code
+    style: Italic
+
+  # Point size of the font
+  size: 9
+
+  # Offset is the extra space around each character. offset.y can be thought of
+  # as modifying the linespacing, and offset.x as modifying the letter spacing.
+  offset:
+    x: 0
+    y: 1
+
+  # Glyph offset determines the locations of the glyphs within their cells with
+  # the default being at the bottom. Increase the x offset to move the glyph to
+  # the right, increase the y offset to move the glyph upward.
+  glyph_offset:
+    x: 0
+    y: 0
+
+cursor:
+  # Cursor style
+  #
+  # Values for 'style':
+  #   - ▇ Block
+  #   - _ Underline
+  #   - | Beam
+  style: Beam
+
+  # If this is `true`, the cursor will be rendered as a hollow box when the
+  # window is not focused.
+  unfocused_hollow: true
+
+# Colors (Ubuntu)
+colors:
+  # Default colors
+  primary:
+    background: '#300a24'
+    foreground: '#eeeeec'
+
+  # Normal colors
+  normal:
+    black:   '#2e3436'
+    red:     '#cc0000'
+    green:   '#4e9a06'
+    yellow:  '#c4a000'
+    blue:    '#3465a4'
+    magenta: '#75507b'
+    cyan:    '#06989a'
+    white:   '#d3d7cf'
+
+  # Bright colors
+  bright:
+    black:   '#555753'
+    red:     '#ef2929'
+    green:   '#8ae234'
+    yellow:  '#fce94f'
+    blue:    '#729fcf'
+    magenta: '#ad7fa8'
+    cyan:    '#34e2e2'
+    white:   '#eeeeec'
+
+
+# The 'GNOME Dark" theme from GNOME terminal.
+
+# colors:
+#   primary:
+#     foreground: '#d0cfcc'
+#     background: '#171421'
+#     bright_foreground: '#ffffff'
+
+#   normal:
+#     black:   '#171421'
+#     red:     '#c01c28'
+#     green:   '#26a269'
+#     yellow:  '#a2734c'
+#     blue:    '#12488b'
+#     magenta: '#a347ba'
+#     cyan:    '#2aa1b3'
+#     white:   '#d0cfcc'
+
+#   bright:
+#     black:   '#5e5c64'
+#     red:     '#f66151'
+#     green:   '#33d17a'
+#     yellow:  '#e9ad0c'
+#     blue:    '#2a7bde'
+#     magenta: '#c061cb'
+#     cyan:    '#33c7de'
+#     white:   '#ffffff'
+
+# # Space Duck
+# colors:
+#   # Default colors
+#   primary:
+#     background: "#0f111b"
+#     foreground: "#ecf0c1"
+#   # Normal colors
+#   normal:
+#     black: "#000000"
+#     red: "#e33400"
+#     green: "#5ccc96"
+#     yellow: "#b3a1e6"
+#     blue: "#00a3cc"
+#     magenta: "#f2ce00"
+#     cyan: "#7a5ccc"
+#     white: "#686f9a"
+
+#   # Bright colors
+#   bright:
+#     black: "#686f9a"
+#     red: "#e33400"
+#     green: "#5ccc96"
+#     yellow: "#b3a1e6"
+#     blue: "#00a3cc"
+#     magenta: "#f2ce00"
+#     cyan: "#7a5ccc"
+#     white: "#f0f1ce"
