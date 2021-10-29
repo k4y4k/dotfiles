@@ -1,0 +1,79 @@
+[general]
+  targets = github,trello,gitlab-main,gitlab-alt
+  log.level = DEBUG
+  annotation_links = True
+
+[github]
+  service = github
+  github.default_priority = M
+  github.add_tags = github
+  github.username = k4y4k
+  github.login = k4y4k
+  github.description_template = {{ "#{{githubnumber}}: {{githubtitle}}" }}
+  github.token = {{ (keepassxc "/_dotfiles/bugwarrior-github").Password }}
+  github.import_labels_as_tags = True
+
+
+[notifications]
+  notifications = False
+
+[trello]
+  service = trello
+  trello.api_key = {{ (keepassxc "/_dotfiles/bugwarrior-trello-apiKey").Password }}
+  trello.token = {{ (keepassxc "/_dotfiles/bugwarrior-trello-token").Password }}
+  trello.include_boards = BgmeyxGe,spMTbyLX,87Q65XPH,gwaSh1WL
+  trello.exclude_lists = Maybe Not,Done,Not Now,Blocked,Published
+  trello.add_tags = trello
+  trello.description_template = {{ "[{{trellolist}}] {{trellocard}}" }}
+  trello.only_if_assigned = k4y4k
+  trello.also_unassigned = True
+  trello.import_labels_as_tags = True
+  trello.label_template = {{ "{{label|replace(' ', '-')}}" }}
+
+[trello-optional]
+  service = trello
+  trello.api_key = {{ (keepassxc "/_dotfiles/bugwarrior-trello-apiKey").Password }}
+  trello.token = {{ (keepassxc "/_dotfiles/bugwarrior-trello-token").Password }}
+  trello.include_boards = 0EjgVm1o
+  trello.exclude_lists = Done,Not Now,Blocked,Published
+  trello.add_tags = trello,optional
+  trello.description_template = {{ "[{{trellolist}}] {{trellocard}}" }}
+  trello.only_if_assigned = k4y4k
+  trello.also_unassigned = True
+  trello.import_labels_as_tags = True
+  trello.label_template = {{ "{{label|replace(' ', '-')}}" }}
+
+[trello-thirdparty]
+  service = trello
+  trello.api_key = {{ (keepassxc "/_dotfiles/bugwarrior-trello-apiKey").Password }}
+  trello.token = {{ (keepassxc "/_dotfiles/bugwarrior-trello-token").Password }}
+  trello.include_boards = 4HWBiNqS
+  trello.exclude_lists = Done,Not Now,Blocked,Published
+  trello.add_tags = trello,optional
+  trello.description_template = {{ "[{{trellolist}}] {{trellocard}}" }}
+  trello.only_if_assigned = k4y4k
+  trello.also_unassigned = False
+  trello.import_labels_as_tags = True
+  trello.label_template = {{ "{{label|replace(' ', '-')}}" }}
+
+[gitlab-alt]
+  service = gitlab
+  gitlab.login = professorette
+  gitlab.token = {{ (keepassxc "/_dotfiles/bugwarrior-gitlabAlt-token").Password }}
+  gitlab.host = gitlab.com
+  gitlab.import_labels_as_tags = True
+  gitlab.include_todos = True
+  gitlab.include_all_todos = False
+  gitlab.owned = True
+  gitlab.description_template = {{ "#{{gitlabnumber}}: {{gitlabtitle}}" }}
+
+[gitlab-main]
+  service = gitlab
+  gitlab.login = k4y4k
+  gitlab.token = {{ (keepassxc "/_dotfiles/bugwarrior-gitlabMain-token").Password }}
+  gitlab.host = gitlab.com
+  gitlab.import_labels_as_tags = True
+  gitlab.include_todos = True
+  gitlab.include_all_todos = False
+  gitlab.owned = True
+  gitlab.description_template = {{ "#{{gitlabnumber}}: {{gitlabtitle}}" }}
