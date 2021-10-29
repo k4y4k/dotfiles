@@ -1,0 +1,17 @@
+[aliases]
+TelegramDesktop = "Telegram"
+"Org\\.gnome\\.Nautilus" = "Nautilus"
+brave-browser = "Brave"
+Navigator = "Firefox"
+obsidian = "Obsidian"
+trello = "Trello"
+sublime_merge = "Sublime Merge"
+discord = "Discord"
+
+[general]
+wm_property = "instance"
+
+[options]
+remove_duplicates = false
+no_names = false
+no_icon_names = false
