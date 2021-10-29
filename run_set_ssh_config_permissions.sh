@@ -1,0 +1,9 @@
+#!/bin/sh
+
+FILE="$HOME/.ssh/config"
+if [ -f "$FILE" ]; then
+    if [ "$(stat -c %a "$FILE")" != "644" ] ; then
+        chmod 644 "$FILE"
+    fi
+fi
+
