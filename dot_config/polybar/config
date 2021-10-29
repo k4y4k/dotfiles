@@ -1,0 +1,176 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+;background = ${xrdb:color0:#222}
+background = #070d0d
+background-alt = #1c1c1c
+;foreground = ${xrdb:color7:#222}
+foreground = #B30049
+foreground-alt = #3D7AFD
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[bar/example]
+monitor = ${env:MONITOR:}
+bottom = true
+width = 100%
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-color = #f00
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = Cozette:pixelsize=10;1
+font-1 = "Monofur Nerd Font Mono:style=Book;5"
+
+modules-left = i3
+modules-right = spotify filesystem pulseaudio memory cpu wlan temperature date 
+
+tray-position = right
+tray-maxsize = 12
+tray-padding = 0
+
+scroll-up = "#i3.prev"
+scroll-down = "#i3.next"
+
+cursor-scroll = false
+
+[module/spotify]
+type = custom/script
+interval = 1
+format = <label>
+exec = python .config/polybar/spotify_status.py -f '{song} — {artist}' -q -t 99
+;control players (optional)
+click-left = playerctl --player=spotify play-pause 
+click-right = playerctl --player=spotify next 
+click-middle = playerctl --player=spotify previous 
+
+[module/pulseaudio]
+type = internal/pulseaudio
+format-volume = <label-volume> 
+label-volume = %{F#3D7AFD}%{F-} %percentage%%
+label-volume-foreground = ${root.foreground}
+label-muted = ﱝ MUTED
+label-muted-foreground = #666
+
+label-muted-font = 1
+
+[module/filesystem]
+type = internal/fs
+interval = 5
+
+mount-0 = /
+mount-1 = /qq
+
+label-mounted = [%{F#3D7AFD}%mountpoint%%{F-}] %percentage_used%% (%free%)
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = true
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+strip-wsnumbers = true
+
+label-mode-padding = 1
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %name%
+label-focused-background = ${colors.background-alt}
+label-focused-padding = 1
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-padding = 1
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "✹ "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+label = %gb_used% | %gb_free%
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected = %{F#3D7AFD}直%{F-} <label-connected>
+label-connected = %essid%
+
+format-disconnected = UH OH NO WIFI
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = " %Y-%m-%d"
+time = %H:%M:%S
+
+format-prefix = ☕
+format-prefix-foreground = ${colors.foreground-alt}
+
+label = %date% %time%
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 80
+
+format = <label>
+format-warn = <label-warn>
+
+label = %{F#3D7AFD}%{F-} %temperature-c%
+label-warn = %{F#3D7AFD}%{F-} %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+[settings]
+screenchange-reload = true
+
+; vim:ft=dosini
