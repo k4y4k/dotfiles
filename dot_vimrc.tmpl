@@ -323,5 +323,8 @@ au filetype vimwiki silent! iunmap <buffer> <Tab>
 let g:airline#extensions#wordcount#filetypes =
     \ ['asciidoc', 'help', 'mail', 'markdown', 'nroff', 'org', 'plaintex', 'rst', 'tex', 'text', 'vimwiki']
 
+" Chezmoi: automatically `chezmoi apply` an edited dotfile
+autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
+
 
 " END KAYAK ZONE ===============================================================
