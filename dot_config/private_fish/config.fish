@@ -47,11 +47,6 @@ function zeal-docs-fix
     popd >/dev/null || exit
 end
 
-. "$HOME/.homesick/repos/homeshick/homeshick.fish"
-source "$HOME/.homesick/repos/homeshick/completions/homeshick.fish"
-
-homeshick --quiet refresh 2
-
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 function np #[n]vim-[p]rettier
