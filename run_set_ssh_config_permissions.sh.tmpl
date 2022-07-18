@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
 FILE="$HOME/.ssh/config"
@@ -6,4 +7,4 @@ if [ -f "$FILE" ]; then
         chmod 644 "$FILE"
     fi
 fi
-
+{{ end -}}
