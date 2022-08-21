@@ -1,4 +1,5 @@
 set guifont=Monoid\ Nerd\ Font\ Mono:h8
+set autoread
 
 let g:neovide_transparency=0.9
 let g:neovide_floating_blur_amount_x=6.0
@@ -23,10 +24,14 @@ Plug 'reedes/vim-lexical', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/goyo.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/limelight.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 " Themes
 Plug 'pineapplegiant/spaceduck', { 'branch' : 'main' }
 Plug 'vim-airline/vim-airline-themes'
 Plug 'morhetz/gruvbox'
+Plug 'dracula/vim'
 
 "  COC
 "  Core
@@ -240,6 +245,7 @@ set wrapscan
 let NERDSpaceDelims=1
 noremap <silent> <c-_> :let @/ = ""<CR>
 set virtualedit=all
+set so=999
 
 " fix tsx
 augroup tsx
