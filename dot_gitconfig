@@ -1,7 +1,6 @@
 [user]
 	name = kayak
 	email = kayak@kayak.rocks
-	signingkey = 2DDFF3801536C718B6071EAFE24FAF21EC0CF0BF
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
