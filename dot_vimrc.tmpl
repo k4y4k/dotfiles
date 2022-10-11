@@ -263,10 +263,11 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
-
 " <leader>cd changes current working dir to currently edited file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 
 "  done :)
 echo "hello kayak!"
