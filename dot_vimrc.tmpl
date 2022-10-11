@@ -30,12 +30,6 @@ Plug 'reedes/vim-lexical', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/goyo.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/limelight.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 
-" Telescope
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
 " Themes
 Plug 'pineapplegiant/spaceduck', { 'branch' : 'main' }
 Plug 'vim-airline/vim-airline-themes'
