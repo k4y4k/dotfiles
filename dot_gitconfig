@@ -21,4 +21,4 @@
 [includeIf "gitdir:C:/Users/kayak/Documents/azure/"]
   path = ~/Documents/azure/.gitconfig
 [includeIf "gitdir:D:/azure/"]
-  path = D:/azure/.gitconfig
+  path = D:/.gitconfig
