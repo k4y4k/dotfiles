@@ -22,6 +22,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'wuelnerdotexe/vim-astro'
 
 " Tree
 Plug 'preservim/nerdtree'
@@ -269,6 +270,9 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+
+" enable TypeScript/TSX in dot-astro files
+let g:astro_typescript = 'enable'
 
 "  done :)
 echo "hello kayak!"
