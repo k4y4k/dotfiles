@@ -1,22 +1,24 @@
 [user]
-	name = kayak
-	email = kayak@kayak.rocks
+  name = kayak
+  email = kayak@kayak.rocks
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [github]
-	user = k4y4k
-[credential]
-	helper = cache
+  user = k4y4k
 [pull]
-	rebase = false
+  rebase = false
 [core]
-	editor = nvim
-[commit]
-	gpgsign = true
+  editor = nvim
 [init]
-	defaultBranch = main
-[alias]
-    gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
+  defaultBranch = main
+[credential]
+  helper = wincred
+[diff]
+  external = difft --tab-width 2 --missing-as-empty --width 120
+[includeIf "gitdir:C:/Users/kayak/Documents/azure/"]
+  path = ~/Documents/azure/.gitconfig
+[includeIf "gitdir:D:/azure/"]
+  path = D:/.gitconfig

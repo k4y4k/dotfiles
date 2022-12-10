@@ -39,11 +39,14 @@ font:
   # the default being at the bottom. Increase the x offset to move the glyph to
   # the right, increase the y offset to move the glyph upward.
   glyph_offset:
-    x: 0
+    x: -1
     y: 0
 
-  use_thin_strokes: false
-  builtin_box_drawing: false
+    builtin_box_drawing: false
+
+title: Alacritty
+dynamic_title: true
+draw_bold_text_with_bright_colors: true
 
 cursor:
   # Cursor style
@@ -52,7 +55,7 @@ cursor:
   #   - ▇ Block
   #   - _ Underline
   #   - | Beam
-  style: Beam
+  style: Block
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
