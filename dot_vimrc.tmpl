@@ -1,3 +1,6 @@
+set nocompatible
+filetype plugin on
+syntax on
 set guifont=CozetteVector:h8
 set autoread
 set encoding=UTF-8
@@ -22,7 +25,11 @@ Plug 'tpope/vim-surround'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'wuelnerdotexe/vim-astro'
+
+" Zettelkasten
+Plug 'vimwiki/vimwiki'
+Plug 'michal-h21/vim-zettel'
+
 
 " Tree
 Plug 'preservim/nerdtree'
@@ -261,7 +268,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 
 " NERD Tree keymaps
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-n> :NERDTree<CR>  
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
@@ -273,6 +280,36 @@ autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 
 " enable TypeScript/TSX in dot-astro files
 let g:astro_typescript = 'enable'
+
+" Setup Zettelkasten dirs
+let g:vimwiki_list = [
+      \ { 'path': 'Q:/working/f/TheWritingRoom', 'syntax': 'markdown', 
+      \ 'ext': 'md'}
+      \] 
+
+" Only files in Zettelkasten dirs are Zettelkastens
+let g:vimwiki_global_ext = 0
+
+augroup i_like_spellchk
+  autocmd!
+  autocmd FileType markdown,rmarkdown,rmd,text set spell
+augroup END
+
+" Keep cursor in approximately the middle of the screen 
+set scrolloff=999
+
+" Search in the Zettlekastens
+let g:nv_search_paths = ['Q:/working/f/TheWritingRoom']
+
+" New Zettles are filenamed like 202011141509 (extension defined in
+" g:vimwiki_list above)
+let g:zettel_format = "%Y%m%d%H%M %title"
+
+" use [[ ]] style links for Zettlekasten
+let g:zettel_link_format="[[%link]]"
+
+" Add spellfile to dictionary source for coc-word
+set dictionary+=~/en.utf-8.add
 
 "  done :)
 echo "hello kayak!"
