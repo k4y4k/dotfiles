@@ -268,7 +268,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 
 " NERD Tree keymaps
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>  
+nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
@@ -283,9 +283,9 @@ let g:astro_typescript = 'enable'
 
 " Setup Zettelkasten dirs
 let g:vimwiki_list = [
-      \ { 'path': 'Q:/working/f/TheWritingRoom', 'syntax': 'markdown', 
-      \ 'ext': 'md'}
-      \] 
+      \ { 'path': 'Q:/working/f/TheWritingRoom', 'syntax': 'markdown',
+      \ 'ext': '.md'}
+      \]
 
 " Only files in Zettelkasten dirs are Zettelkastens
 let g:vimwiki_global_ext = 0
@@ -295,7 +295,7 @@ augroup i_like_spellchk
   autocmd FileType markdown,rmarkdown,rmd,text set spell
 augroup END
 
-" Keep cursor in approximately the middle of the screen 
+" Keep cursor in approximately the middle of the screen
 set scrolloff=999
 
 " Search in the Zettlekastens
