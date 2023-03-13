@@ -38,22 +38,35 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; auto-completion
-     ;; better-defaults
-     emacs-lisp
-     git
-     helm
-     ;; lsp
-     markdown
-     multiple-cursors
-     org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+      auto-completion
+      better-defaults
+      spotify
+      dash
+      emacs-lisp
+      git
+      helm
+      lsp
+      markdown
+      multiple-cursors
+      (org :variables
+           org-todo-dependencies-strategy 'semiauto
+           org-enable-org-journal-support t
+           org-journal-dir "~/org/journal/"
+           org-enable-trello-support t
+           org-enable-sticky-header t
+           )
+      (shell :variables
+              shell-default-height 30
+              shell-default-position 'bottom)
       spell-checking
       syntax-checking
+      typography
+      emoji
+      unicode-fonts
       version-control
-     treemacs)
+      treemacs
+      prettier
+     )
 
 
    ;; List of additional packages that will be installed without being wrapped
