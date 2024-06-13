@@ -1,7 +1,6 @@
 set nocompatible
 filetype plugin on
 syntax on
-set guifont=CozetteVector:h8
 set autoread
 set encoding=UTF-8
 
@@ -30,7 +29,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'michal-h21/vim-zettel'
 
-
 " Tree
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -42,27 +40,24 @@ Plug 'reedes/vim-lexical', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/goyo.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/limelight.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
 " Themes
 Plug 'pineapplegiant/spaceduck', { 'branch' : 'main' }
 Plug 'vim-airline/vim-airline-themes'
-Plug 'morhetz/gruvbox'
-Plug 'dracula/vim'
 
 "  COC
 "  Core
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'bun i'}
 "  Plugins
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'bun i'}
+Plug 'neoclide/coc-json', {'do': 'bun i'}
+Plug 'neoclide/coc-css', {'do': 'bun i'}
+Plug 'neoclide/coc-html', {'do': 'bun i'}
+Plug 'neoclide/coc-eslint', {'do': 'bun i'}
+Plug 'neoclide/coc-prettier', {'do': 'bun i'}
+Plug 'neoclide/coc-yaml', {'do': 'bun i'}
+Plug 'neoclide/coc-vetur', {'do': 'bun i'}
+Plug 'fannheyward/coc-biome', {'do': 'bun i'}
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 call plug#end()
 
@@ -246,8 +241,6 @@ augroup tsx
 	au BufRead,BufNewFile *.tsx set suffixesadd+=.tsx
 	au BufRead,BufNewFile *.tsx set filetype=typescript.tsx
 augroup END
-
-set updatetime=300
 
 " Prettier command formats document
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
