@@ -10,6 +10,7 @@ source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
 starship init fish | source
 
+# saying it with an aussie accent is REQUIRED, NOT OPTIONAL
 export ANDROID_WHEREABOUTS="/Volumes/Palm-Sized-Wondah/android"
 
 export PATH="$ANDROID_WHEREABOUTS/sdk/emulator:$ANDROID_WHEREABOUTS/sdk/tools:$ANDROID_WHEREABOUTS/sdk:$ANDROID_WHEREABOUTS/sdk/platform-tools:$PATH"
