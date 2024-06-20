@@ -4,13 +4,14 @@ syntax on
 set autoread
 set encoding=UTF-8
 
-let g:neovide_transparency=0.9
-let g:neovide_floating_blur_amount_x=6.0
-let g:neovide_floating_blur_amount_y=6.0
-
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
+
+" Themes
+Plug 'pineapplegiant/spaceduck', { 'branch' : 'main' }
+Plug 'vim-airline/vim-airline-themes'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 Plug 'junegunn/seoul256.vim'
 Plug 'vim-airline/vim-airline'
@@ -40,9 +41,6 @@ Plug 'reedes/vim-lexical', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/goyo.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/limelight.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 
-" Themes
-Plug 'pineapplegiant/spaceduck', { 'branch' : 'main' }
-Plug 'vim-airline/vim-airline-themes'
 
 "  COC
 "  Core
@@ -71,7 +69,7 @@ endif
 
 " set colours
 colorscheme dracula
-let g:airline_theme = 'spaceduck'
+let g:airline_theme = 'dracula'
 
 "  coc stuff
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
