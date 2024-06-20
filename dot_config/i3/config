@@ -27,24 +27,19 @@ font pango:Noto Sans Mono 10
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Fix mouse
+# NOTE: 20/Jun/2024 what??? what does she mean by this? 
 exec --no-startup-id xinput set-prop 12 --type=float Coordinate\ Transformation\ Matrix 2.5 0 0 0 2.5 0 0 0 1
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+exec --no-startup-id setxkbmap us -variant dvorak -option caps:backspace
+
 # set up multiple screens (script generated via arandr)
 exec --no-startup-id /home/kayak/.screenlayout/screens.sh
 
-exec --no-startup-id megasync
-exec --no-startup-id redshift-gtk
-exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id keepassxc
-exec --no-startup-id safeeyes
-exec --no-startup-id blueberry-tray
-
-# set background image
-exec --no-startup-id nitrogen --restore
 
 # have volume icon
 exec --no-startup-id volumeicon

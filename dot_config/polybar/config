@@ -38,10 +38,9 @@ foreground = ${colors.foreground}
 line-color = #f00
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
-font-0 = Cozette:pixelsize=10;1
-font-1 = "Monofur Nerd Font Mono:style=Book;5"
+font-0 = "Noto Sans Mono:style=Bold;4"
 
 modules-left = i3
 modules-right = spotify filesystem pulseaudio memory cpu wlan temperature date 
@@ -80,7 +79,6 @@ type = internal/fs
 interval = 5
 
 mount-0 = /
-mount-1 = /qq
 
 label-mounted = [%{F#3D7AFD}%mountpoint%%{F-}] %percentage_used%% (%free%)
 label-unmounted = %mountpoint% not mounted
