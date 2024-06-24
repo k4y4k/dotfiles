@@ -41,7 +41,6 @@ Plug 'reedes/vim-lexical', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/goyo.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 Plug 'junegunn/limelight.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 
-
 "  COC
 "  Core
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'bun i'}
@@ -65,6 +64,16 @@ if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
+endif
+
+" Neovide config
+if exists("g:neovide")
+  set guifont=Agave\ Nerd\ Font\ Mono:h16
+  set linespace=6
+  let g:neovide_floating_blur_amount_x = 2.0
+  let g:neovide_floating_blur_amount_y = 2.0
+  let g:neovide_transparency = 0.8
+  let g:neovide_cursor_vfx_mode = "pixiedust"
 endif
 
 " set colours
