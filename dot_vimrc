@@ -68,7 +68,13 @@ endif
 
 " Neovide config
 if exists("g:neovide")
-  set guifont=Agave\ Nerd\ Font\ Mono:h16
+  if has("macunix")
+    set guifont=Agave\ Nerd\ Font\ Mono:h16
+  endif
+  if has("unix")
+    set guifont=Agave\ Nerd\ Font\ Mono:h10
+  endif
+
   set linespace=6
   let g:neovide_floating_blur_amount_x = 2.0
   let g:neovide_floating_blur_amount_y = 2.0
