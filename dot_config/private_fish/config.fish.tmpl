@@ -17,6 +17,9 @@ export PATH="$ANDROID_WHEREABOUTS/sdk/emulator:$ANDROID_WHEREABOUTS/sdk/tools:$A
 export ANDROID_HOME="$ANDROID_WHEREABOUTS"
 
 {{- end }}
+{{- if eq .chezmoi.os "linux" }}
+source /opt/asdf-vm/asdf.fish
+{{- end }}
 
 fzf --fish | source
 
