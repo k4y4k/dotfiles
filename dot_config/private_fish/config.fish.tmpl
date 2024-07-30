@@ -1,12 +1,12 @@
-set -gx PATH $HOME/.asdf/shims $PATH
-
 {{- if eq .chezmoi.os "darwin" }}
+
+set -gx PATH $HOME/.asdf/shims $PATH
+source ~/.asdf/asdf.fish
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
 # saying it with an aussie accent is REQUIRED, NOT OPTIONAL
 export ANDROID_WHEREABOUTS="/Volumes/Palm-Sized-Wondah/android"
