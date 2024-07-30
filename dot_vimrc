@@ -12,6 +12,9 @@ Plug 'tpope/vim-sensible'
 Plug 'pineapplegiant/spaceduck', { 'branch' : 'main' }
 Plug 'vim-airline/vim-airline-themes'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'rebelot/kanagawa.nvim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'maxmx03/fluoromachine.nvim'
 
 Plug 'junegunn/seoul256.vim'
 Plug 'vim-airline/vim-airline'
@@ -44,6 +47,7 @@ Plug 'junegunn/limelight.vim', {'for': ['markdown', 'rmarkdown', 'text', 'rmd']}
 "  COC
 "  Core
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'bun i'}
+
 "  Plugins
 Plug 'neoclide/coc-tsserver', {'do': 'bun i'}
 Plug 'neoclide/coc-json', {'do': 'bun i'}
@@ -83,7 +87,7 @@ if exists("g:neovide")
 endif
 
 " set colours
-colorscheme dracula
+colorscheme kanagawa
 let g:airline_theme = 'dracula'
 
 "  coc stuff
