@@ -25,6 +25,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -58,7 +59,6 @@ Plug 'neoclide/coc-prettier', {'do': 'bun i'}
 Plug 'neoclide/coc-yaml', {'do': 'bun i'}
 Plug 'neoclide/coc-vetur', {'do': 'bun i'}
 Plug 'fannheyward/coc-biome', {'do': 'bun i'}
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 call plug#end()
 
