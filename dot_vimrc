@@ -59,6 +59,7 @@ Plug 'neoclide/coc-prettier', {'do': 'bun i'}
 Plug 'neoclide/coc-yaml', {'do': 'bun i'}
 Plug 'neoclide/coc-vetur', {'do': 'bun i'}
 Plug 'fannheyward/coc-biome', {'do': 'bun i'}
+Plug 'josa42/coc-lua', {'do':'bun i'}
 
 call plug#end()
 
