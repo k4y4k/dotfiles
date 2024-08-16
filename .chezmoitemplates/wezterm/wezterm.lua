@@ -3,29 +3,6 @@ local config = wezterm.config_builder()
 local light_dark_switcher = require("light_dark_switcher")
 local wacky_mode = require("wacky_mode")
 
-config.font = wezterm.font_with_fallback({
-	"Server Mono",
-	{ family = "Monaspace Argon", weight = "Medium" },
-	"JetBrainsMono Nerd Font Mono",
-})
-
-config.font_size = 14
-config.line_height = 1.15
-
-if light_dark_switcher.is_host_light_theme() then
-	config.color_scheme = "Tokyo Night Day"
-else
-	config.color_scheme = "Tokyo Night"
-end
-
-config.window_background_opacity = 0.85
-config.macos_window_background_blur = 30
--- config.window_decorations = "RESIZE"
-config.window_frame = {
-	font = wezterm.font({ family = "Monaspace Argon", weight = "Bold" }),
-	font_size = 11,
-}
-
 --- Returns the battery segment.
 --- @return string
 local function battery_segment()
@@ -84,10 +61,57 @@ local function battery_segment()
 	return icon .. " " .. juice .. " " .. "(" .. time .. ")"
 end
 
+local function platform()
+	local platform = wezterm.target_triple
+
+	if platform:find("windows") then
+		platform = "windows"
+	elseif platform:find("darwin") then
+		platform = "macos"
+	elseif platform:find("linux") then
+		platform = "linux"
+	else
+		platform = "unknown"
+	end
+
+	return platform
+end
+
+config.font = wezterm.font_with_fallback({
+	"Server Mono",
+	{ family = "Monaspace Argon", weight = "Medium" },
+	"JetBrainsMono Nerd Font Mono",
+})
+
+if platform() == "macos" then
+	config.font_size = 14
+	config.line_height = 1.15
+end
+
+config.font_size = 14
+config.line_height = 1.15
+
+if light_dark_switcher.is_host_light_theme() then
+	config.color_scheme = "Tokyo Night Day"
+else
+	config.color_scheme = "Tokyo Night"
+end
+
+config.window_background_opacity = 0.85
+config.macos_window_background_blur = 30
+-- config.window_decorations = "RESIZE"
+config.window_frame = {
+	font = wezterm.font({ family = "Monaspace Argon", weight = "Bold" }),
+	font_size = 11,
+}
+
 --- @return table
 local function segments_for_right_status(window)
 	local ideal = {
-		wacky_mode.sayHi(),
+		platform() == "macos" and wezterm.nerdfonts.fa_apple or platform() == "windows" and wezterm.nerdfonts.fa_windows or
+		platform() == "linux" and wezterm.nerdfonts.fa_linux or
+		"",
+
 		battery_segment(),
 		-- TODO: hide icons if too squished
 		wezterm.nerdfonts.fa_clock_o .. " " .. wezterm.strftime("%H:%M"),
