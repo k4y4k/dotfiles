@@ -78,7 +78,7 @@ local function battery_segment()
 	elseif tonumber(time) == 60 then
 		time = "1h"
 	else -- if time < 60 then it's x minutes
-		time = time .. "m"
+		time = time .. " min"
 	end
 
 	return icon .. " " .. juice .. " " .. "(" .. time .. ")"
@@ -87,6 +87,7 @@ end
 --- @return table
 local function segments_for_right_status(window)
 	local ideal = {
+		wacky_mode.sayHi(),
 		battery_segment(),
 		-- TODO: hide icons if too squished
 		wezterm.nerdfonts.fa_clock_o .. " " .. wezterm.strftime("%H:%M"),
