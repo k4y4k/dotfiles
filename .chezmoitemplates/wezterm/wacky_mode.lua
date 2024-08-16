@@ -1,3 +1,5 @@
+local wezterm = require("wezterm")
+local module = {}
 
 -- local colour_themes = {}
 -- for name, theme in pairs(wezterm.color.get_builtin_schemes()) do
@@ -14,3 +16,9 @@
 -- window:set_config_overrides({ color_scheme = theme })
 -- wezterm.log_info("Colour theme: " .. theme)
 -- end)
+
+function module.sayHi()
+	return "WACKY MODE"
+end
+
+return module
