@@ -4,6 +4,11 @@ local light_dark_switcher = require("light_dark_switcher")
 local wacky_mode = require("wacky_mode")
 
 --- Returns the battery segment.
+--- If no battery (like a desktop), returns ""
+--- If there's more than an hour of charging/discharging left to go, returns [⚡️|🔋|☕️] xx% (YhZm)
+--- If there's exactly an hour of charging/discharging left to go, returns [⚡️|🔋|☕️] xx% (1h)
+--- If there's less than an hour, returns [⚡️|🔋|☕️] xx% (Z min)
+---
 --- @return string
 local function battery_segment()
 	local battery = wezterm.battery_info()[1]
@@ -31,7 +36,7 @@ local function battery_segment()
 		icon = ""
 	end
 
-	local juice = string.format('%.0f%%', battery.state_of_charge * 100)
+	local juice = string.format("%.0f%%", battery.state_of_charge * 100)
 
 	-- Could be time to 100% or time to 0%. Context specific.
 	--- @type string
@@ -77,44 +82,55 @@ local function platform()
 	return platform
 end
 
-config.font = wezterm.font_with_fallback({
+---@type table
+local fontList = {
 	"Server Mono",
 	{ family = "Monaspace Argon", weight = "Medium" },
 	"JetBrainsMono Nerd Font Mono",
-})
+}
+
+config.font = wezterm.font_with_fallback(fontList)
 
 if platform() == "macos" then
 	config.font_size = 14
 	config.line_height = 1.15
 end
 
-config.font_size = 14
-config.line_height = 1.15
+-- FIXME - make compatible with random themes
+-- if light_dark_switcher.is_host_light_theme() then
+-- 	config.color_scheme = "Tokyo Night Day"
+-- else
+-- 	config.color_scheme = "Tokyo Night"
+-- end
 
-if light_dark_switcher.is_host_light_theme() then
-	config.color_scheme = "Tokyo Night Day"
-else
-	config.color_scheme = "Tokyo Night"
-end
-
+config.window_decorations = 'RESIZE|INTEGRATED_BUTTONS'
 config.window_background_opacity = 0.85
 config.macos_window_background_blur = 30
--- config.window_decorations = "RESIZE"
+
 config.window_frame = {
-	font = wezterm.font({ family = "Monaspace Argon", weight = "Bold" }),
-	font_size = 11,
+	-- Berkeley Mono for me again, though an idea could be to try a
+	-- serif font here instead of monospace for a nicer look?
+	-- font = wezterm.font({ family = 'Berkeley Mono', weight = 'Bold' }),
+	font_size = 12,
+	font = wezterm.font_with_fallback(fontList),
+
 }
 
 --- @return table
-local function segments_for_right_status(window)
+local function segments_for_right_status()
 	local ideal = {
-		platform() == "macos" and wezterm.nerdfonts.fa_apple or platform() == "windows" and wezterm.nerdfonts.fa_windows or
-		platform() == "linux" and wezterm.nerdfonts.fa_linux or
-		"",
+		wacky_mode.compose_segment(),
+
+		platform() == "macos" and wezterm.nerdfonts.fa_apple
+		or platform() == "windows" and wezterm.nerdfonts.fa_windows
+		or platform() == "linux" and wezterm.nerdfonts.fa_linux
+		or "",
 
 		battery_segment(),
 		-- TODO: hide icons if too squished
-		wezterm.nerdfonts.fa_clock_o .. " " .. wezterm.strftime("%H:%M"),
+		wezterm.nerdfonts.fa_clock_o
+		.. " "
+		.. wezterm.strftime("%H:%M"),
 		wezterm.nerdfonts.fa_calendar_o .. " " .. wezterm.strftime("%d %b %Y (%a)"),
 	}
 
@@ -123,7 +139,7 @@ end
 
 wezterm.on("update-status", function(window, _)
 	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
-	local segments = segments_for_right_status(window)
+	local segments = segments_for_right_status()
 
 	local color_scheme = window:effective_config().resolved_palette
 
