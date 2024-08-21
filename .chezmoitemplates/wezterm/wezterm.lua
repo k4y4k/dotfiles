@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local light_dark_switcher = require("light_dark_switcher")
-local wacky_mode = require("wacky_mode")
 
 --- Returns the battery segment.
 --- If no battery (like a desktop), returns ""
@@ -30,13 +29,17 @@ local function battery_segment()
 		icon = wezterm.nerdfonts.fa_bolt
 	elseif battery.state == "Discharging" then
 		icon = wezterm.nerdfonts.fa_battery_empty
-	elseif battery.state == "Full" then
-		icon = wezterm.nerdfonts.fa_coffee
 	else
 		icon = ""
 	end
 
+	if battery.state == "Full" then
+		return wezterm.nerdfonts.fa_coffee .. " 100%"
+	end
+
 	local juice = string.format("%.0f%%", battery.state_of_charge * 100)
+
+	wezterm.log_info(battery)
 
 	-- Could be time to 100% or time to 0%. Context specific.
 	--- @type string
@@ -66,7 +69,7 @@ local function battery_segment()
 	return icon .. " " .. juice .. " " .. "(" .. time .. ")"
 end
 
-local function platform()
+local function get_platform()
 	local platform = wezterm.target_triple
 
 	if platform:find("windows") then
@@ -84,28 +87,28 @@ end
 
 ---@type table
 local fontList = {
-	"Server Mono",
+	-- "Server Mono",
 	{ family = "Monaspace Argon", weight = "Medium" },
 	"JetBrainsMono Nerd Font Mono",
 }
 
 config.font = wezterm.font_with_fallback(fontList)
 
-if platform() == "macos" then
+if get_platform() == "macos" then
 	config.font_size = 14
 	config.line_height = 1.15
 end
 
 -- FIXME - make compatible with random themes
--- if light_dark_switcher.is_host_light_theme() then
--- 	config.color_scheme = "Tokyo Night Day"
--- else
--- 	config.color_scheme = "Tokyo Night"
--- end
+if light_dark_switcher.is_host_light_theme() then
+	config.color_scheme = "Atelier Seaside Light (base16)"
+else
+	config.color_scheme = "tokyonight_moon"
+end
 
-config.window_decorations = 'RESIZE|INTEGRATED_BUTTONS'
-config.window_background_opacity = 0.85
-config.macos_window_background_blur = 30
+config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
+config.window_background_opacity = 0.80
+config.macos_window_background_blur = 15
 
 config.window_frame = {
 	-- Berkeley Mono for me again, though an idea could be to try a
@@ -113,24 +116,23 @@ config.window_frame = {
 	-- font = wezterm.font({ family = 'Berkeley Mono', weight = 'Bold' }),
 	font_size = 12,
 	font = wezterm.font_with_fallback(fontList),
-
 }
 
 --- @return table
 local function segments_for_right_status()
 	local ideal = {
-		wacky_mode.compose_segment(),
+		--	wacky_mode.compose_segment(),
 
-		platform() == "macos" and wezterm.nerdfonts.fa_apple
-		or platform() == "windows" and wezterm.nerdfonts.fa_windows
-		or platform() == "linux" and wezterm.nerdfonts.fa_linux
-		or "",
+		get_platform() == "macos" and wezterm.nerdfonts.fa_apple
+			or get_platform() == "windows" and wezterm.nerdfonts.fa_windows
+			or get_platform() == "linux" and wezterm.nerdfonts.fa_linux
+			or "",
 
 		battery_segment(),
 		-- TODO: hide icons if too squished
 		wezterm.nerdfonts.fa_clock_o
-		.. " "
-		.. wezterm.strftime("%H:%M"),
+			.. " "
+			.. wezterm.strftime("%H:%M"),
 		wezterm.nerdfonts.fa_calendar_o .. " " .. wezterm.strftime("%d %b %Y (%a)"),
 	}
 
