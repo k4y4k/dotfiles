@@ -37,7 +37,7 @@ local function battery_segment()
 		return wezterm.nerdfonts.fa_coffee .. " 100%"
 	end
 
-	local juice = string.format("%.0f%%", battery.state_of_charge * 100)
+	local juice = string.format("%.0f%%", (battery.state_of_charge * 100) + 1)
 
 	wezterm.log_info(battery)
 
@@ -101,9 +101,9 @@ end
 
 -- FIXME - make compatible with random themes
 if light_dark_switcher.is_host_light_theme() then
-	config.color_scheme = "Atelier Seaside Light (base16)"
+	config.color_scheme = "Catppuccin Latte"
 else
-	config.color_scheme = "tokyonight_moon"
+	config.color_scheme = "Catppuccin Mocha"
 end
 
 config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
