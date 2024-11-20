@@ -31,15 +31,13 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # set up multiple screens (script generated via arandr)
-# exec --no-startup-id /home/kayak/.screenlayout/screens.sh
-
-exec --no-startup-id keepassxc
+# exec --no-startup-id $HOME/.screenlayout/screens.sh
 
 # have volume icon
 # exec --no-startup-id volumeicon
 
-# get this party started
-exec --no-startup-id spotify
+
+exec_always --no-startup-id /usr/bin/i3wsr
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -52,7 +50,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec wezterm
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -63,7 +61,8 @@ set $barbg '#070d0d'
 #set $baryellow '#ffb52a'
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -fn 'Agave Nerd Font Mono:bold:pixelsize=16' -nb $barbg -sf $barpink -sb $barbg -nf '#bbbbbb'
+# bindsym $mod+d exec dmenu_run -fn 'Agave Nerd Font Mono:bold:pixelsize=16' -nb $barbg -sf $barpink -sb $barbg -nf '#bbbbbb'
+bindsym $mod+d exec rofi -show run
 
 # default dmenu
 # dmenu_run -nb '#222222' -sf '#eeeeee' -sb '#005577' -nf '#bbbbbb'
@@ -166,7 +165,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'good to exit i3 or nah?' -B 'nah yeah' 'i3-msg exit'"
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -198,8 +198,7 @@ bindsym $mod+r mode "resize"
 # polybar for bar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # auto workspace renaming
-exec_always --no-startup-id i3wsr --config /home/kayak/i3wsr_config.toml
-
+exec_always --no-startup-id i3wsr --config $HOME/i3wsr_config.toml
 
 # Super + . for screenshots
 bindsym $mod+period exec spectacle -creb
