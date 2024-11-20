@@ -41,9 +41,10 @@ module-margin-left = 1
 module-margin-right = 1
 
 font-0 = "Agave Nerd Font Mono:style=Bold;4"
+font-1 = "Noto Color Emoji:scale=10;2"
 
 modules-left = i3
-modules-right = spotify filesystem pulseaudio memory cpu wlan temperature date 
+modules-right = spotify filesystem pulseaudio memory cpu temperature wlan date
 
 tray-position = right
 tray-maxsize = 12
@@ -58,18 +59,19 @@ cursor-scroll = false
 type = custom/script
 interval = 1
 format = <label>
-exec = python .config/polybar/spotify_status.py -f '{song} — {artist}' -q -t 99
+exec = python .config/polybar/spotify_status.py -t 999 -q
+
 ;control players (optional)
-click-left = playerctl --player=spotify play-pause 
-click-right = playerctl --player=spotify next 
-click-middle = playerctl --player=spotify previous 
+click-left = playerctl --player=spotify play-pause
+click-right = playerctl --player=spotify next
+;click-left = playerctl --player=spotify previous
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume = <label-volume> 
+format-volume = <label-volume>
 label-volume = %{F#3D7AFD}%{F-} %percentage%%
 label-volume-foreground = ${root.foreground}
-label-muted = ﱝ MUTED
+label-muted = MUTED!
 label-muted-foreground = #666
 
 label-muted-font = 1
@@ -123,32 +125,32 @@ label-urgent-padding = 2
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "✹ "
+format-prefix = "cpu"
 format-prefix-foreground = ${colors.foreground-alt}
 label = %percentage:2%%
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = "mem "
 format-prefix-foreground = ${colors.foreground-alt}
-label = %gb_used% | %gb_free%
+label = %gb_used% / %gb_free% (%gb_total% phys, %gb_swap_used% swapon)
 
 [module/wlan]
 type = internal/network
-interface = wlp3s0
+interface = wlp0s20f0u13u3
 interval = 3.0
 
-format-connected = %{F#3D7AFD}直%{F-} <label-connected>
-label-connected = %essid%
+format-connected = %{F#3D7AFD}wifi%{F-} <label-connected>
+label-connected = ok
 
-format-disconnected = UH OH NO WIFI
+format-disconnected = network not ok:(
 
 [module/date]
 type = internal/date
 interval = 1
 
-date = " %Y-%m-%d"
+date = "%Y-%m-%d"
 time = %H:%M:%S
 
 format-prefix = ☕
@@ -158,14 +160,14 @@ label = %date% %time%
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 0
+thermal-zone = 1
 warn-temperature = 80
 
 format = <label>
 format-warn = <label-warn>
 
-label = %{F#3D7AFD}%{F-} %temperature-c%
-label-warn = %{F#3D7AFD}%{F-} %temperature-c%
+label = %temperature-c%
+label-warn = %temperature-c% !
 label-warn-foreground = ${colors.secondary}
 
 [settings]
