@@ -7,7 +7,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
-
 # saying it with an aussie accent is REQUIRED, NOT OPTIONAL
 export ANDROID_WHEREABOUTS="/Volumes/Palm-Sized-Wondah/android"
 
@@ -21,6 +20,12 @@ export ANDROID_HOME="$ANDROID_WHEREABOUTS"
 {{- end }}
 {{- if eq .chezmoi.os "linux" }}
 source /opt/asdf-vm/asdf.fish
+
+export PATH="$PATH:$HOME/.maestro/bin"
+export PATH="$HOME/.nix-profile/bin:$PATH"
+direnv hook fish | source
+export PATH="$HOME/.tool-versions:$PATH"
+
 {{- end }}
 
 fzf --fish | source
@@ -31,6 +36,3 @@ export PATH="$HOME/bin/:$PATH"
 export PATH="$HOME/.bin/:$PATH"
 
 thefuck --alias | source
-
-export PATH="$PATH:$HOME/.maestro/bin"
-
