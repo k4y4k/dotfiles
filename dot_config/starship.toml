@@ -1,0 +1,63 @@
+
+# Insert a blank line between shell prompts
+add_newline = true
+
+# Define the order and format of the information in our prompt
+format = """\
+$username$directory\
+$fill\
+$git_branch$git_commit$git_status$git_metrics$git_state\
+$fill $cmd_duration$all$package\
+${custom.git_config_email}
+$character"""
+
+[username]
+disabled = false
+show_always = true
+format = '[󰥟 $user]($style) '
+
+[character]
+# TODO: fail symbol?
+success_symbol = '[→](bold green)'
+
+[fill]
+symbol = "─"
+
+# Disable the line break between the first and second prompt lines
+[line_break]
+ disabled = true
+
+# Customize the format of the working directory
+[directory]
+truncate_to_repo = true
+truncation_length = 5
+truncation_symbol = '/'
+read_only = ""
+home_symbol = ""
+
+[git_branch]
+symbol = " "
+format = "[ $symbol$branch(:$remote_branch) ]($style)"
+
+[package]
+disabled = true # Enable to output the current working directory's package version
+format = "pkg [$version]($style) "
+display_private = true
+
+[cmd_duration]
+format = "[  $duration ]($style)"
+style = "white"
+
+# Output the current git config email address
+[custom.git_config_email]
+description = "Output the current git user's configured email address."
+command = "git config user.email"
+format = "\n[$symbol( $output)]($style)"
+# Only when inside git repository
+when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
+style = "text"
+
+[nodejs]
+format = "[$symbol($version)]($style) "
+
+
