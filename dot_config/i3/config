@@ -36,7 +36,6 @@ exec --no-startup-id nm-applet
 # have volume icon
 # exec --no-startup-id volumeicon
 
-
 exec_always --no-startup-id /usr/bin/i3wsr
 
 # Use pactl to adjust volume in PulseAudio.
@@ -61,8 +60,7 @@ set $barbg '#070d0d'
 #set $baryellow '#ffb52a'
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run -fn 'Agave Nerd Font Mono:bold:pixelsize=16' -nb $barbg -sf $barpink -sb $barbg -nf '#bbbbbb'
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec dmenu_run -fn 'Agave Nerd Font Mono:bold:pixelsize=16' -nb $barbg -sf $barpink -sb $barbg -nf '#bbbbbb'
 
 # default dmenu
 # dmenu_run -nb '#222222' -sf '#eeeeee' -sb '#005577' -nf '#bbbbbb'
