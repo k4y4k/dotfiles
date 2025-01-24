@@ -18,7 +18,3 @@
   helper = wincred
 [diff]
   external = difft --tab-width 2 --missing-as-empty --width 120
-[includeIf "gitdir:C:/Users/kayak/Documents/azure/"]
-  path = ~/Documents/azure/.gitconfig
-[includeIf "gitdir:D:/azure/"]
-  path = D:/.gitconfig
