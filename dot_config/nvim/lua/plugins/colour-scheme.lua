@@ -55,20 +55,21 @@ wk.add({
 
 return {
 
-  { "BrunoCiccarino/nekonight" },
+  { "BrunoCiccarino/nekonight", lazy = true },
 
-  { "dracula/vim" },
+  { "dracula/vim", lazy = true },
 
-  { "NLKNguyen/papercolor-theme" },
+  { "NLKNguyen/papercolor-theme", lazy = true },
 
-  { "nyoom-engineering/oxocarbon.nvim" },
+  { "nyoom-engineering/oxocarbon.nvim", lazy = true },
 
-  { "pineapplegiant/spaceduck" },
+  { "pineapplegiant/spaceduck", lazy = true },
 
-  { "rebelot/kanagawa.nvim" },
+  { "rebelot/kanagawa.nvim", lazy = true },
 
   {
     "junegunn/seoul256.vim",
+    lazy = true,
     config = function()
       vim.g.seoul256_srgb = 1
     end,
@@ -77,6 +78,7 @@ return {
   {
     -- wake up, samurai...
     "maxmx03/fluoromachine.nvim",
+    lazy = true,
     config = function()
       local fm = require("fluoromachine")
 
@@ -95,8 +97,12 @@ return {
     end,
   },
 
+  { "rktjmp/lush.nvim", lazy = false },
+
   {
     "sainnhe/everforest",
+    lazy = false,
+    priority = 1000,
     config = function()
       -- Optionally configure and load the colorscheme
       -- directly inside the plugin declaration.
