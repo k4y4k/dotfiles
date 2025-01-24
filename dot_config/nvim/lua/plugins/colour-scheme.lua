@@ -55,12 +55,48 @@ wk.add({
 
 return {
 
-  -- COLOUR SCHEMES
+  { "BrunoCiccarino/nekonight" },
+
+  { "dracula/vim" },
+
+  { "NLKNguyen/papercolor-theme" },
+
+  { "nyoom-engineering/oxocarbon.nvim" },
+
+  { "pineapplegiant/spaceduck" },
+
+  { "rebelot/kanagawa.nvim" },
+
+  {
+    "junegunn/seoul256.vim",
+    config = function()
+      vim.g.seoul256_srgb = 1
+    end,
+  },
+
+  {
+    -- wake up, samurai...
+    "maxmx03/fluoromachine.nvim",
+    config = function()
+      local fm = require("fluoromachine")
+
+      fm.setup({
+        glow = true,
+        theme = "fluoromachine",
+        transparent = false,
+      })
+
+      -- INVESTIGATE: lualine matches if this theme is selected, otherwise does whatever it does already
+      -- local lualine = require("lualine")
+
+      -- lualine.setup({ options = {
+      --   theme = "fluoromachine",
+      -- } })
+    end,
+  },
 
   {
     "sainnhe/everforest",
-    -- lazy = false,
-    -- priority = 1000,
     config = function()
       -- Optionally configure and load the colorscheme
       -- directly inside the plugin declaration.
@@ -68,15 +104,6 @@ return {
       --  TODO: add it to the list
     end,
   },
-
-  {
-    "BrunoCiccarino/nekonight",
-    lazy = false,
-    priority = 1000,
-    -- opts = {},
-  },
-
-  { "nyoom-engineering/oxocarbon.nvim" },
 
   { "LazyVim/LazyVim", opts = { colorscheme = "everforest" } },
 }
