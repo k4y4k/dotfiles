@@ -2,8 +2,13 @@ local wezterm = require("wezterm")
 local module = {}
 
 --- Returns the battery segment.
+--- If no battery (like a desktop), returns ""
+--- If there's more than an hour of charging/discharging left to go, returns [⚡️|🔋|☕️] xx% (YhZm)
+--- If there's exactly an hour of charging/discharging left to go, returns [⚡️|🔋|☕️] xx% (1h)
+--- If there's less than an hour, returns [⚡️|🔋|☕️] xx% (Z min)
+---
 --- @return string
-function module.battery_segment()
+local function battery_segment()
 	local battery = wezterm.battery_info()[1]
 
 	if not battery then
@@ -11,25 +16,27 @@ function module.battery_segment()
 	end
 
 	--[[
-    Use an icon to show the state of the battery.
-    ⚡️ - charging
-    🔋 - discharging
-    ☕️ - plugged in
-    empty string if no battery found
-  ]]
+		Use an icon to show the state of the battery.
+		⚡️ - charging
+		🔋 - discharging
+		☕️ - plugged in
+		empty string if no battery found
+	]]
 	local icon = ""
 
 	if battery.state == "Charging" then
 		icon = wezterm.nerdfonts.fa_bolt
 	elseif battery.state == "Discharging" then
 		icon = wezterm.nerdfonts.fa_battery_empty
-	elseif battery.state == "Full" then
-		icon = wezterm.nerdfonts.fa_coffee
 	else
 		icon = ""
 	end
 
-	local juice = string.format("%.0f%%", battery.state_of_charge * 100)
+	if battery.state == "Full" then
+		return wezterm.nerdfonts.fa_coffee .. " 100%"
+	end
+
+	local juice = string.format("%.0f%%", (battery.state_of_charge * 100) + 1)
 
 	-- Could be time to 100% or time to 0%. Context specific.
 	--- @type string
@@ -58,5 +65,7 @@ function module.battery_segment()
 
 	return icon .. " " .. juice .. " " .. "(" .. time .. ")"
 end
+
+module.battery = battery_segment()
 
 return module

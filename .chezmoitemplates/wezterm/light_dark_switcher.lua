@@ -9,6 +9,7 @@ function module.is_host_light_theme()
 		-- is it light theme in here?
 		return wezterm.gui.get_appearance():find("Light")
 	end
+
 	-- if wezterm is not available, or cannot find out, we'll default to
 	-- light theme anyway
 	return true
