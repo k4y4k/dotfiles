@@ -34,15 +34,17 @@ if get_platform() == "macos" then
 	config.line_height = 1.10
 end
 
--- FIXME - make compatible with random themes
 if light_dark_switcher.is_host_light_theme() then
-	config.color_scheme = "Catppuccin Latte"
+	-- LIGHT MODE
+	-- TODO: yet to find a light theme that i actually like but this is ok for now
+	config.color_scheme = "seoulbones_light"
 else
+	-- DARK MODE
 	config.color_scheme = "Catppuccin Mocha"
 end
 
 config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
-config.window_background_opacity = 0.80
+config.window_background_opacity = 0.85
 config.macos_window_background_blur = 15
 
 config.window_frame = {
@@ -83,10 +85,11 @@ wezterm.on("update-status", function(window, _)
 
 	---@diagnostic disable-next-line: unbalanced-assignments - It seems to work
 	local gradient_to, gradient_from = bg
+
 	if light_dark_switcher.is_host_light_theme() then
-		gradient_from = gradient_to:darken(0.2)
+		gradient_from = gradient_to:darken(0.2):adjust_hue_fixed(-15)
 	else
-		gradient_from = gradient_to:lighten(0.2)
+		gradient_from = gradient_to:lighten(0.2):adjust_hue_fixed(15)
 	end
 
 	-- Yes, WezTerm supports creating gradients, because why not?! Although

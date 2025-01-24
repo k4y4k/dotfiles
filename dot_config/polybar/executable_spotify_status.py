@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# NOTE: i didnt write this and i dont remember where it comes from lol
+# I have edited it in the past but 99% of this code is someone else's 
+
 import sys
 import dbus
 import argparse
