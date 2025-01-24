@@ -31,10 +31,12 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # set up multiple screens (script generated via arandr)
-# exec --no-startup-id $HOME/.screenlayout/screens.sh
+exec_always --no-startup-id $HOME/.screenlayout/screens.sh
 
 # have volume icon
 # exec --no-startup-id volumeicon
+# INVESTIGATE: how can i only have 1 pasystray at once?
+exec --no-startup-id pasystray
 
 exec_always --no-startup-id /usr/bin/i3wsr
 
@@ -195,11 +197,13 @@ bindsym $mod+r mode "resize"
 
 # polybar for bar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
 # auto workspace renaming
+# FIXME: $Mod+[num] creates duplicate [num] ?
 exec_always --no-startup-id i3wsr --config $HOME/i3wsr_config.toml
 
 # Super + . for screenshots
-bindsym $mod+period exec spectacle -creb
+# bindsym $mod+period exec spectacle -creb
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play

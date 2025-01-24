@@ -66,6 +66,9 @@ click-left = playerctl --player=spotify play-pause
 click-right = playerctl --player=spotify next
 ;click-left = playerctl --player=spotify previous
 
+# TODO: what if multiple outputs? so far it just uses the deafult 
+# (which is always the wrong one lmao)
+
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = <label-volume>
