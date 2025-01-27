@@ -54,9 +54,6 @@ wk.add({
 })
 
 return {
-
-  { "BrunoCiccarino/nekonight", lazy = true },
-
   { "dracula/vim", lazy = true },
 
   { "NLKNguyen/papercolor-theme", lazy = true },
