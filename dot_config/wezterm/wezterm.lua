@@ -37,7 +37,7 @@ end
 if light_dark_switcher.is_host_light_theme() then
   -- LIGHT MODE
   -- TODO: yet to find a light theme that i actually like but this is ok for now
-  config.color_scheme = "Papercolor Light (Gogh)"
+  config.color_scheme = "Atelier Estuary Light (base16)"
 else
   -- DARK MODE
   config.color_scheme = "Catppuccin Mocha"
@@ -52,23 +52,67 @@ config.window_frame = {
   font = wezterm.font_with_fallback(fontList),
 }
 
+local function naiveHostnameFixes(string)
+  ---@type string
+  local res = "" .. string
+
+  res = res.gsub(res, ".local", "")
+
+  return res
+end
+
+---@return string # [icon?] user@host
+local function user_segment()
+  ---@type string
+  local icon = get_platform() == "macos" and wezterm.nerdfonts.fa_apple
+    or get_platform() == "windows" and wezterm.nerdfonts.fa_windows
+    or get_platform() == "linux" and wezterm.nerdfonts.fa_linux
+    -- TODO: what happens when no icon?
+    or ""
+
+  ---@type string
+  local hostname = naiveHostnameFixes(wezterm.hostname())
+
+  local username = os.getenv("USER")
+    or os.getenv("LOGNAME")
+    or os.getenv("USERNAME")
+
+  local res = icon .. " " .. username .. "@" .. hostname
+
+  return res
+end
+
+---@return string
+local function clock_blinking_seperators()
+  local sec = wezterm.strftime("%S")
+  local doShowDots = sec % 2 == 0
+
+  ---@type string
+  local res = wezterm.strftime("%H:%M")
+
+  if doShowDots then
+    res = res.gsub(res, ":", " ")
+  end
+
+  return wezterm.nerdfonts.fa_clock_o .. " " .. res
+end
+
 --- @return table
 local function segments_for_right_status()
   local ideal = {
 
-    get_platform() == "macos" and wezterm.nerdfonts.fa_apple
-      or get_platform() == "windows" and wezterm.nerdfonts.fa_windows
-      or get_platform() == "linux" and wezterm.nerdfonts.fa_linux
-      or "",
+    user_segment(),
 
     battery_segment.battery,
 
     -- TODO: hide icons if too squished
-    wezterm.nerdfonts.fa_clock_o
-      .. " "
-      .. wezterm.strftime("%H:%M"),
+    -- wezterm.nerdfonts.fa_clock_o
+    --   .. " "
+    --   .. wezterm.strftime("%H:%M:%S"),
+    clock_blinking_seperators(),
+
     wezterm.nerdfonts.fa_calendar_o .. " " .. wezterm.strftime(
-      "%d %b/%m %Y (%a)"
+      "%d %b|%m %Y (%a)"
     ),
   }
 
@@ -77,7 +121,9 @@ end
 
 wezterm.on("update-status", function(window, _)
   ---@diagnostic disable-next-line: undefined-global -- it works
-  local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+  local SOLID_LEFT_ARROW = utf8.char(0xe0b6)
+
+  ---@type string[]
   local segments = segments_for_right_status()
 
   local color_scheme = window:effective_config().resolved_palette
@@ -94,10 +140,6 @@ wezterm.on("update-status", function(window, _)
     gradient_from = gradient_to:lighten(0.2):adjust_hue_fixed(15)
   end
 
-  -- Yes, WezTerm supports creating gradients, because why not?! Although
-  -- they'd usually be used for setting high fidelity gradients on your terminal's
-  -- background, we'll use them here to give us a sample of the powerline segment
-  -- colours we need.
   local gradient = wezterm.color.gradient(
     {
       orientation = "Horizontal",
@@ -106,11 +148,13 @@ wezterm.on("update-status", function(window, _)
     #segments -- only gives us as many colours as we have segments.
   )
 
-  -- We'll build up the elements to send to wezterm.format in this table.
   local elements = {}
 
   for i, seg in ipairs(segments) do
     local is_first = i == 1
+
+    ---@type boolean # is the last character already a space?
+    local shouldAddSpace = seg.sub(seg, -1) ~= " "
 
     if is_first then
       table.insert(elements, { Background = { Color = "none" } })
@@ -120,7 +164,12 @@ wezterm.on("update-status", function(window, _)
 
     table.insert(elements, { Foreground = { Color = fg } })
     table.insert(elements, { Background = { Color = gradient[i] } })
-    table.insert(elements, { Text = " " .. seg .. " " })
+
+    if shouldAddSpace then
+      table.insert(elements, { Text = "" .. seg .. " " })
+    else
+      table.insert(elements, { Text = "" .. seg .. "" })
+    end
   end
 
   window:set_right_status(wezterm.format(elements))
