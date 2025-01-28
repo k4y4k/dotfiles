@@ -1,9 +1,23 @@
-if vim.g.neovide then
-  local uname = tostring(os.execute("uname"))
+-- NOTE: this came from a gist:
+-- https://gist.github.com/Zbizu/43df621b3cd0dc460a76f7fe5aa87f30
+local function get_os()
+  local osname
+  if jit then
+    return jit.os
+  end
 
-  if string.lower(uname) == "linux" then
+  local fh, err = assert(io.popen("uname -o 2>/dev/null", "r"))
+  if fh then
+    osname = fh:read()
+  end
+
+  return osname or "windows"
+end
+
+if vim.g.neovide then
+  if get_os() == "Linux" then
     -- glyphs are 1 closer to each other (they have a spacing of -1)
-    vim.o.guifont = "RecMonoCasual Nerd Font Mono:h11:w-1"
+    vim.o.guifont = "RecMonoCasual Nerd Font Mono:h10:w-1"
   else
     vim.o.guifont = "RecMonoCasual Nerd Font Mono:h14:w-1"
   end
