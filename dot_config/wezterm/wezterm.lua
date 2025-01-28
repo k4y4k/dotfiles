@@ -48,8 +48,8 @@ config.window_background_opacity = 0.85
 config.macos_window_background_blur = 15
 
 config.window_frame = {
-  font_size = 12,
-  font = wezterm.font_with_fallback(fontList),
+  font_size = 11,
+  font = wezterm.font("Victor Mono", { style = "Italic" }),
 }
 
 local function naiveHostnameFixes(string)
@@ -61,8 +61,7 @@ local function naiveHostnameFixes(string)
   return res
 end
 
----@return string # [icon?] user@host
-local function user_segment()
+local function choose_icon_os()
   ---@type string
   local icon = get_platform() == "macos" and wezterm.nerdfonts.fa_apple
     or get_platform() == "windows" and wezterm.nerdfonts.fa_windows
@@ -70,6 +69,11 @@ local function user_segment()
     -- TODO: what happens when no icon?
     or ""
 
+  return icon
+end
+
+---@return string # [icon?] user@host
+local function user_segment()
   ---@type string
   local hostname = naiveHostnameFixes(wezterm.hostname())
 
@@ -77,7 +81,7 @@ local function user_segment()
     or os.getenv("LOGNAME")
     or os.getenv("USERNAME")
 
-  local res = icon .. " " .. username .. "@" .. hostname
+  local res = username .. "@" .. hostname
 
   return res
 end
@@ -97,34 +101,16 @@ local function clock_blinking_seperators()
   return wezterm.nerdfonts.fa_clock_o .. " " .. res
 end
 
---- @return table
-local function segments_for_right_status()
-  local ideal = {
-
-    user_segment(),
-
-    battery_segment.battery,
-
-    -- TODO: hide icons if too squished
-    -- wezterm.nerdfonts.fa_clock_o
-    --   .. " "
-    --   .. wezterm.strftime("%H:%M:%S"),
-    clock_blinking_seperators(),
-
-    wezterm.nerdfonts.fa_calendar_o .. " " .. wezterm.strftime(
-      "%d %b|%m %Y (%a)"
-    ),
-  }
-
-  return ideal
-end
-
 wezterm.on("update-status", function(window, _)
-  ---@diagnostic disable-next-line: undefined-global -- it works
-  local SOLID_LEFT_ARROW = utf8.char(0xe0b6)
-
   ---@type string[]
-  local segments = segments_for_right_status()
+  local segments = {
+    choose_icon_os(),
+    user_segment(),
+    battery_segment.battery,
+    clock_blinking_seperators(),
+    wezterm.nerdfonts.fa_calendar_o .. " " .. wezterm.strftime("%d %b %Y"),
+    wezterm.nerdfonts.fa_hand_peace_o .. " " .. wezterm.strftime("%a"),
+  }
 
   local color_scheme = window:effective_config().resolved_palette
 
@@ -151,25 +137,10 @@ wezterm.on("update-status", function(window, _)
   local elements = {}
 
   for i, seg in ipairs(segments) do
-    local is_first = i == 1
-
-    ---@type boolean # is the last character already a space?
-    local shouldAddSpace = seg.sub(seg, -1) ~= " "
-
-    if is_first then
-      table.insert(elements, { Background = { Color = "none" } })
-    end
-    table.insert(elements, { Foreground = { Color = gradient[i] } })
-    table.insert(elements, { Text = SOLID_LEFT_ARROW })
-
     table.insert(elements, { Foreground = { Color = fg } })
     table.insert(elements, { Background = { Color = gradient[i] } })
 
-    if shouldAddSpace then
-      table.insert(elements, { Text = "" .. seg .. " " })
-    else
-      table.insert(elements, { Text = "" .. seg .. "" })
-    end
+    table.insert(elements, { Text = " " .. seg .. " " })
   end
 
   window:set_right_status(wezterm.format(elements))
