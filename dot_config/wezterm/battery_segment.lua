@@ -28,7 +28,7 @@ local function maybe_add_estimate()
     return ""
   end
 
-  if time == nil then
+  if time == nil or tonumber(time) == nil then
     return ""
   end
 
@@ -72,12 +72,20 @@ local function battery_segment()
     icon = wezterm.nerdfonts.fa_bolt
   end
 
+  if battery.state == "Unknown" then
+    icon = wezterm.nerdfonts.fa_question
+  end
+
   if battery.state == "Discharging" then
     icon = wezterm.nerdfonts.fa_arrow_down
   end
 
   if battery.state == "Discharging" and battery.state_of_charge < 0.20 then
     icon = wezterm.nerdfonts.fa_exclamation
+  end
+
+  if icon ~= "" then
+    icon = icon .. " "
   end
 
   -- [[
@@ -91,10 +99,10 @@ local function battery_segment()
     return wezterm.nerdfonts.fa_coffee .. " 100%"
   end
 
-  local juice = string.format("%.0f%%", (battery.state_of_charge * 100) + 1)
+  local juice = string.format("%.0f%%", (battery.state_of_charge * 100))
   local estimate = maybe_add_estimate()
 
-  return icon .. " " .. juice .. estimate
+  return icon .. juice .. estimate
 end
 
 module.battery = battery_segment()
