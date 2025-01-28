@@ -1,6 +1,11 @@
 if vim.g.neovide then
   -- glyphs are 1 closer to each other (they have a spacing of -1)
-  -- vim.o.guifont = "RecMonoCasual Nerd Font Mono:h14:w-1"
+  vim.o.guifont = "RecMonoCasual Nerd Font Mono:h14:w-1"
+
+  -- INVESTIGATE: handle the mac's retina screen
+  if tostring(os.execute("uname") == "Linux") then
+    vim.o.guifont = "RecMonoCasual Nerd Font Mono:h11:w-1"
+  end
 
   vim.g.neovide_window_blurred = true
 
