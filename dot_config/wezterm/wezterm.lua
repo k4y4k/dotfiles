@@ -48,17 +48,20 @@ config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
 config.window_background_opacity = 0.85
 config.macos_window_background_blur = 15
 
+local tab_font = wezterm.font("Victor Mono", {
+  style = "Italic",
+  weight = "Bold",
+})
+
 config.window_frame = {
-  font = wezterm.font("Victor Mono", {
-    style = "Italic",
-    weight = "Bold",
-  }),
+  font = tab_font,
   font_size = 12,
 }
 
 if get_platform() == "macos" then
-  config.window_frame = { font_size = 11 }
+  config.window_frame = { font_size = 11, font = tab_font }
 end
+
 local function naiveHostnameFixes(string)
   ---@type string
   local res = "" .. string
@@ -119,7 +122,7 @@ wezterm.on("update-status", function(window, _)
 
   -- INVESTIGATE: battery segment on macos but not linux
   if get_platform() == "macos" then
-    segments = { battery_segment.battery, unpack(segments) }
+    segments = { battery_segment.battery, table.unpack(segments) }
   end
 
   local color_scheme = window:effective_config().resolved_palette
