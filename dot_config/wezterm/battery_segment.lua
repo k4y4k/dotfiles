@@ -57,8 +57,6 @@ local function battery_segment()
     return ""
   end
 
-  wezterm.log_info(battery)
-
   --[[
 		Use an icon to show the state of the battery.
 		⚡️ - charging

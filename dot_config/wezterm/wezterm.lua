@@ -41,6 +41,7 @@ if light_dark_switcher.is_host_light_theme() then
 else
   -- DARK MODE
   config.color_scheme = "Catppuccin Mocha"
+  config.color_scheme = "Atelier Savanna (base16)"
 end
 
 config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
@@ -48,10 +49,16 @@ config.window_background_opacity = 0.85
 config.macos_window_background_blur = 15
 
 config.window_frame = {
-  font_size = 11,
-  font = wezterm.font("Victor Mono", { style = "Italic" }),
+  font = wezterm.font("Victor Mono", {
+    style = "Italic",
+    weight = "Bold",
+  }),
+  font_size = 12,
 }
 
+if get_platform() == "macos" then
+  config.window_frame = { font_size = 11 }
+end
 local function naiveHostnameFixes(string)
   ---@type string
   local res = "" .. string
@@ -104,13 +111,16 @@ end
 wezterm.on("update-status", function(window, _)
   ---@type string[]
   local segments = {
-    choose_icon_os(),
     user_segment(),
-    battery_segment.battery,
     clock_blinking_seperators(),
     wezterm.nerdfonts.fa_calendar_o .. " " .. wezterm.strftime("%d %b %Y"),
     wezterm.nerdfonts.fa_hand_peace_o .. " " .. wezterm.strftime("%a"),
   }
+
+  -- INVESTIGATE: battery segment on macos but not linux
+  if get_platform() == "macos" then
+    segments = { battery_segment.battery, unpack(segments) }
+  end
 
   local color_scheme = window:effective_config().resolved_palette
 
@@ -121,9 +131,9 @@ wezterm.on("update-status", function(window, _)
   local gradient_to, gradient_from = bg
 
   if light_dark_switcher.is_host_light_theme() then
-    gradient_from = gradient_to:darken(0.2):adjust_hue_fixed(-15)
+    gradient_from = gradient_to:darken(0.2 * 2):adjust_hue_fixed(-15)
   else
-    gradient_from = gradient_to:lighten(0.2):adjust_hue_fixed(15)
+    gradient_from = gradient_to:lighten(0.1):adjust_hue_fixed(-70)
   end
 
   local gradient = wezterm.color.gradient(
