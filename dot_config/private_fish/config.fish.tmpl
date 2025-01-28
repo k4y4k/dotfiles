@@ -1,21 +1,9 @@
 {{- if eq .chezmoi.os "darwin" }}
 
-set -gx PATH $HOME/.asdf/shims $PATH
-source ~/.asdf/asdf.fish
+export PATH="/opt/homebrew:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
-
-# saying it with an aussie accent is REQUIRED, NOT OPTIONAL
-export ANDROID_WHEREABOUTS="/Volumes/Palm-Sized-Wondah/android"
-
-export PATH="$ANDROID_WHEREABOUTS/sdk/emulator:$ANDROID_WHEREABOUTS/sdk/tools:$ANDROID_WHEREABOUTS/sdk:$ANDROID_WHEREABOUTS/sdk/platform-tools:$PATH"
-
-# sets JAVA_HOME
-. ~/.asdf/plugins/java/set-java-home.fish
-
-export ANDROID_HOME="$ANDROID_WHEREABOUTS"
+# mise should be auto-setted-upped :D 🎉
 
 {{- end }}
 
@@ -33,7 +21,6 @@ fzf --fish | source
 
 starship init fish | source
 
-export PATH="$HOME/bin/:$PATH"
 export PATH="$HOME/.bin/:$PATH"
 
 thefuck --alias | source
