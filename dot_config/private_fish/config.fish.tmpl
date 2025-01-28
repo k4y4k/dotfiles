@@ -5,6 +5,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 
 # mise should be auto-setted-upped :D 🎉
 
+
 {{- end }}
 
 {{- if eq .chezmoi.os "linux" }}
@@ -24,3 +25,10 @@ starship init fish | source
 export PATH="$HOME/.bin/:$PATH"
 
 thefuck --alias | source
+
+{{- if eq .chezmoi.os "darwin" }}
+
+# TODO: install / test on arch too
+zoxide init fish | source
+
+{{- end }}
