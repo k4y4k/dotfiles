@@ -203,7 +203,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id i3wsr --config $HOME/i3wsr_config.toml
 
 # Super + . for screenshots
-# bindsym $mod+period exec spectacle -creb
+bindsym $mod+period exec spectacle -cre
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
