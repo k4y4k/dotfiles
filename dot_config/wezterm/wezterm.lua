@@ -1,7 +1,15 @@
 local wezterm = require("wezterm")
+local choose_theme = require("choose_theme")
 local config = wezterm.config_builder()
 local light_dark_switcher = require("light_dark_switcher")
+local style_debug = require("style_debug")
 local battery_segment = require("battery_segment")
+local user_segment = require("user_segment")
+
+--- Whether to enable the style debug tabs
+--- (can use a lot of space)
+---@type boolean
+local enable_style_debug = true
 
 local function get_platform()
   local platform = wezterm.target_triple
@@ -34,15 +42,7 @@ if get_platform() == "macos" then
   config.line_height = 1.10
 end
 
-if light_dark_switcher.is_host_light_theme() then
-  -- LIGHT MODE
-  -- TODO: yet to find a light theme that i actually like but this is ok for now
-  config.color_scheme = "Atelier Estuary Light (base16)"
-else
-  -- DARK MODE
-  config.color_scheme = "Catppuccin Mocha"
-  config.color_scheme = "Atelier Savanna (base16)"
-end
+config.color_scheme = choose_theme.choose_colour_theme()
 
 config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
 config.window_background_opacity = 0.85
@@ -62,15 +62,6 @@ if get_platform() == "macos" then
   config.window_frame = { font_size = 11, font = tab_font }
 end
 
-local function naiveHostnameFixes(string)
-  ---@type string
-  local res = "" .. string
-
-  res = res.gsub(res, ".local", "")
-
-  return res
-end
-
 local function choose_icon_os()
   ---@type string
   local icon = get_platform() == "macos" and wezterm.nerdfonts.fa_apple
@@ -80,20 +71,6 @@ local function choose_icon_os()
     or ""
 
   return icon
-end
-
----@return string # [icon?] user@host
-local function user_segment()
-  ---@type string
-  local hostname = naiveHostnameFixes(wezterm.hostname())
-
-  local username = os.getenv("USER")
-    or os.getenv("LOGNAME")
-    or os.getenv("USERNAME")
-
-  local res = username .. "@" .. hostname
-
-  return res
 end
 
 ---@return string
@@ -114,15 +91,24 @@ end
 wezterm.on("update-status", function(window, _)
   ---@type string[]
   local segments = {
-    user_segment(),
+    user_segment.user_host(),
     clock_blinking_seperators(),
     wezterm.nerdfonts.fa_calendar_o .. " " .. wezterm.strftime("%d %b %Y"),
     wezterm.nerdfonts.fa_hand_peace_o .. " " .. wezterm.strftime("%a"),
   }
 
-  -- INVESTIGATE: battery segment on macos but not linux
+  -- NOTE: battery segment on macos but not linux
+  -- TODO: make dependent on battery existing
   if get_platform() == "macos" then
     segments = { battery_segment.battery, table.unpack(segments) }
+  end
+
+  if enable_style_debug then
+    segments = {
+      style_debug.theme_name(),
+      style_debug.theme_tab(),
+      table.unpack(segments),
+    }
   end
 
   local color_scheme = window:effective_config().resolved_palette
@@ -134,9 +120,9 @@ wezterm.on("update-status", function(window, _)
   local gradient_to, gradient_from = bg
 
   if light_dark_switcher.is_host_light_theme() then
-    gradient_from = gradient_to:darken(0.2 * 2):adjust_hue_fixed(-15)
+    gradient_from = gradient_to:darken(0.2):adjust_hue_fixed(45)
   else
-    gradient_from = gradient_to:lighten(0.1):adjust_hue_fixed(-70)
+    gradient_from = gradient_to:lighten(0.1):adjust_hue_fixed(-45)
   end
 
   local gradient = wezterm.color.gradient(
