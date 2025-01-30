@@ -2,11 +2,13 @@
 -- https://gist.github.com/Zbizu/43df621b3cd0dc460a76f7fe5aa87f30
 local function get_os()
   local osname
+
   if jit then
     return jit.os
   end
 
   local fh, err = assert(io.popen("uname -o 2>/dev/null", "r"))
+
   if fh then
     osname = fh:read()
   end
@@ -14,10 +16,24 @@ local function get_os()
   return osname or "windows"
 end
 
+-- NOTE: this is how you skip noice and log bulletproofily
+-- vim.api.nvim_echo(
+--   { { "isGnome " .. tostring(isGnome) } },
+--   true,
+--   { verbose = true }
+-- )
+
+-- glyphs are 1 closer to each other (they have a spacing of -1)
 if vim.g.neovide then
   if get_os() == "Linux" then
-    -- glyphs are 1 closer to each other (they have a spacing of -1)
-    vim.o.guifont = "RecMonoCasual Nerd Font Mono:h10:w-1"
+    -- NOTE: GNOME scales neovide differently to i3wm
+    local is_gnome = tostring(os.getenv("DESKTOP_SESSION")) == "gnome" or nil
+
+    if is_gnome then
+      vim.o.guifont = "RecMonoCasual Nerd Font Mono:h12:w-1"
+    else -- (i3)
+      vim.o.guifont = "RecMonoCasual Nerd Font Mono:h10:w-1"
+    end
   else
     vim.o.guifont = "RecMonoCasual Nerd Font Mono:h14:w-1"
   end

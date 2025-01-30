@@ -23,8 +23,6 @@ local function isAfterEndOfDay()
 end
 
 local function maybeChangeBG()
-  local status = ""
-
   if isBeforeStartOfDay() or isAfterEndOfDay() then
     print("STILL GRINDING ?")
 
@@ -54,19 +52,54 @@ wk.add({
 })
 
 return {
-  { "dracula/vim", lazy = true },
+  { "dracula/vim", name = "dracula" },
 
-  { "NLKNguyen/papercolor-theme", lazy = true },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      local c = require("catppuccin")
 
-  { "nyoom-engineering/oxocarbon.nvim", lazy = true },
+      c.setup({
+        integrations = {
+          ts_rainbow = true,
+        },
+        color_overrides = {
+          mocha = {
+            text = "#F4CDE9",
+            subtext1 = "#DEBAD4",
+            subtext0 = "#C8A6BE",
+            overlay2 = "#B293A8",
+            overlay1 = "#9C7F92",
+            overlay0 = "#866C7D",
+            surface2 = "#705867",
+            surface1 = "#5A4551",
+            surface0 = "#44313B",
 
-  { "pineapplegiant/spaceduck", lazy = true },
+            base = "#352939",
+            mantle = "#211924",
+            crust = "#1a1016",
+          },
+        },
+      })
+    end,
+  },
 
-  { "rebelot/kanagawa.nvim", lazy = true },
+  { "ajmwagar/vim-deus" },
+
+  { "NLKNguyen/papercolor-theme" },
+
+  { "nyoom-engineering/oxocarbon.nvim" },
+
+  { "pineapplegiant/spaceduck" },
+
+  { "rebelot/kanagawa.nvim" },
 
   {
     "junegunn/seoul256.vim",
-    lazy = true,
+
     config = function()
       vim.g.seoul256_srgb = 1
     end,
@@ -75,7 +108,7 @@ return {
   {
     -- wake up, samurai...
     "maxmx03/fluoromachine.nvim",
-    lazy = true,
+
     config = function()
       local fm = require("fluoromachine")
 
@@ -98,7 +131,6 @@ return {
 
   {
     "sainnhe/everforest",
-    lazy = false,
     priority = 1000,
     config = function()
       -- Optionally configure and load the colorscheme
