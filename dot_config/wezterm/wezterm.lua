@@ -9,7 +9,7 @@ local user_segment = require("user_segment")
 --- Whether to enable the style debug tabs
 --- (can use a lot of space)
 ---@type boolean
-local enable_style_debug = true
+local enable_style_debug = false
 
 local function get_platform()
   local platform = wezterm.target_triple
@@ -44,7 +44,6 @@ end
 
 config.color_scheme = choose_theme.choose_colour_theme()
 
-config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
 config.window_background_opacity = 0.85
 config.macos_window_background_blur = 15
 
@@ -57,20 +56,11 @@ config.window_frame = {
   font = tab_font,
   font_size = 12,
 }
+config.window_decorations = "NONE"
 
 if get_platform() == "macos" then
   config.window_frame = { font_size = 11, font = tab_font }
-end
-
-local function choose_icon_os()
-  ---@type string
-  local icon = get_platform() == "macos" and wezterm.nerdfonts.fa_apple
-    or get_platform() == "windows" and wezterm.nerdfonts.fa_windows
-    or get_platform() == "linux" and wezterm.nerdfonts.fa_linux
-    -- TODO: what happens when no icon?
-    or ""
-
-  return icon
+  config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
 end
 
 ---@return string
@@ -144,5 +134,7 @@ wezterm.on("update-status", function(window, _)
 
   window:set_right_status(wezterm.format(elements))
 end)
+
+config.background = require("background").choose_bg_image()
 
 return config

@@ -7,7 +7,7 @@ function module.choose_colour_theme()
   local res
 
   if light_dark_switcher.is_host_light_theme() then
-    res = "Atelier Estuary Light (base16)"
+    res = "Atelier Savanna Light (base16)"
   else
     res = "Atelier Savanna (base16)"
   end
