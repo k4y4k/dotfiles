@@ -1,4 +1,3 @@
-local w = require("wezterm")
 local th = require("light_dark_switcher")
 
 local module = {}
@@ -33,6 +32,29 @@ function module.choose_bg_image()
       },
     }
   end
+
+  background = {
+    {
+      source = { Color = "#72d9be" },
+      width = "100%",
+      height = "100%",
+      opacity = 0.5,
+      hsb = { saturation = 0.5, brightness = -1 },
+    },
+    {
+      source = {
+        File = os.getenv("HOME") .. "/.config/wezterm/" .. "img/bg_d.jpg",
+      },
+      opacity = 0.6,
+    },
+
+    {
+      source = { Color = "#111" },
+      opacity = 0.7,
+      width = "100%",
+      height = "100%",
+    },
+  }
 
   return background
 end
