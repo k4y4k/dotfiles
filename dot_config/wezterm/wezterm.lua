@@ -9,7 +9,10 @@ local user_segment = require("user_segment")
 --- Whether to enable the style debug tabs
 --- (can use a lot of space)
 ---@type boolean
-local enable_style_debug = false
+local enable_style_debug = true
+
+config.use_fancy_tab_bar = false
+config.use_cap_height_to_scale_fallback_fonts = true
 
 local function get_platform()
   local platform = wezterm.target_triple
@@ -56,7 +59,9 @@ config.window_frame = {
   font = tab_font,
   font_size = 12,
 }
-config.window_decorations = "NONE"
+
+-- config.window_decorations = "NONE"
+config.window_decorations = "RESIZE"
 
 if get_platform() == "macos" then
   config.window_frame = { font_size = 11, font = tab_font }
