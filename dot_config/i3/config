@@ -38,7 +38,12 @@ exec_always --no-startup-id $HOME/.screenlayout/screens.sh
 # INVESTIGATE: how can i only have 1 pasystray at once?
 exec --no-startup-id pasystray
 
+# FIXME: if [1 firefox] and [1 org.wezfurlong.wezterm] exist, $Mod+1 creates a THIRD [1] workspace 😩 omg be so fr rn...
+# auto rename workspaces in i3
 exec_always --no-startup-id /usr/bin/i3wsr
+
+# ActivityWatch
+exec --no-startup-id aw-qt
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
