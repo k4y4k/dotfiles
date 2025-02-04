@@ -1,35 +1,26 @@
+# COMMON TOP START
+mise activate fish | source
+# COMMON TOP END
+
 {{- if eq .chezmoi.os "darwin" }}
 
 export PATH="/opt/homebrew:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
-
-echo 'mise activate fish | source' >>~/.config/fish/config.fish
-
 export NEOVIDE_FRAME="transparent"
-
 {{- end }}
 
 {{- if eq .chezmoi.os "linux" }}
-source /opt/asdf-vm/asdf.fish
 
 export PATH="$PATH:$HOME/.maestro/bin"
 export PATH="$HOME/.nix-profile/bin:$PATH"
 direnv hook fish | source
 export PATH="$HOME/.tool-versions:$PATH"
-
 {{- end }}
 
+# COMMON END START
 fzf --fish | source
-
 starship init fish | source
-
-export PATH="$HOME/.bin/:$PATH"
-
 thefuck --alias | source
 
-{{- if eq .chezmoi.os "darwin" }}
-
-# TODO: install / test on arch too
-zoxide init fish | source
-
-{{- end }}
+export PATH="$HOME/.bin/:$PATH"
+# COMMON END END
