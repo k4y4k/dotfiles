@@ -60,8 +60,17 @@ config.window_frame = {
   font_size = 12,
 }
 
--- config.window_decorations = "NONE"
-config.window_decorations = "RESIZE"
+config.tab_max_width = 99
+
+config.window_decorations = "NONE"
+
+if string.lower(tostring(get_platform())) == "linux" then
+  local is_gnome = tostring(os.getenv("DESKTOP_SESSION")) == "gnome" or nil
+
+  if is_gnome then
+    config.window_decorations = "RESIZE"
+  end
+end
 
 if get_platform() == "macos" then
   config.window_frame = { font_size = 11, font = tab_font }
