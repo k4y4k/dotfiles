@@ -31,6 +31,7 @@ function module.choose_bg_image()
         height = "100%",
       },
     }
+    return background
   end
 
   background = {
