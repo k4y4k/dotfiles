@@ -10,6 +10,7 @@ wk.add({
     desc = "Toggle stay-centered",
   },
   { "<leader>k/", "<cmd>gcc<cr>", desc = "toggle line comment" },
+  { "<leader>kk", "<cmd>let @/=''<cr>", desc = "clear search" },
   {
     "<leader>ko",
     -- FIXME: needs debugging - sometimes code opens 5 files that are obviously the uninterpreted args
