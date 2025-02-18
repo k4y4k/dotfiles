@@ -40,7 +40,8 @@ line-color = #f00
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = "Agave Nerd Font Mono:style=Bold;4"
+font-0 = "GeistMono Nerd Font Mono:style=Bold;4"
+; font-0 = "Agave Nerd Font Mono:style=Bold;4"
 font-1 = "Noto Color Emoji:scale=10;2"
 ; JP glyphs - otherwise no glyphs render
 font-2 = "Noto Sans CJK JP:style=Heavy;4"
