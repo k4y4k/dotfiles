@@ -18,12 +18,17 @@
 
 [colors]
 background = #050f0c
-background-alt = #0a1f18
 foreground = #0bda51
+
+background-alt = #0a1f18
 foreground-alt = #fa418b
 
 foreground-dim = #555
+
 foreground-warn = #ffb52a
+
+background-urgent = #ffb52a
+foreground-urgent = #291b00
 
 [bar/example]
 monitor = ${env:MONITOR:}
@@ -32,8 +37,6 @@ width = 100%
 
 background = ${colors.background}
 foreground = ${colors.foreground}
-
-line-color = #f00
 
 module-margin-left = 1
 module-margin-right = 1
@@ -65,13 +68,13 @@ exec = python .config/polybar/spotify_status.py -t 999 -q
 click-left = playerctl --player=spotify play-pause
 click-right = playerctl --player=spotify next
 
-# TODO: what if multiple outputs? so far it just uses the deafult 
+# TODO: what if multiple outputs? so far it just uses the deafult
 # (which is always the wrong one lmao)
 
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = <label-volume>
-label-volume = %{F#fa418b}%{F-} %percentage%%
+label-volume = %{F#fa418b}vol%{F-} %percentage%%
 label-volume-foreground = ${root.foreground}
 label-muted = MUTED!
 label-muted-foreground = ${colors.foreground-dim}
@@ -118,18 +121,28 @@ label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Workspace with urgency hint set
 label-urgent = %name%
-label-urgent-background = ${colors.alert}
+label-urgent-background = ${colors.background-urgent}
+label-urgent-foreground = ${colors.foreground-urgent}
 label-urgent-padding = 2
-
-; Separator in between workspaces
-; label-separator = |
 
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "cpu"
+format-prefix = "cpu "
 format-prefix-foreground = ${colors.foreground-alt}
-label = %percentage:2%%
+label = %percentage%%
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 1
+warn-temperature = 60
+
+format = <label>
+format-warn = <label-warn>
+
+label = "%temperature-c%"
+label-warn = "%temperature-c%!!"
+label-warn-foreground = ${colors.foreground-warn}
 
 [module/memory]
 type = internal/memory
@@ -144,23 +157,13 @@ interval = 1
 
 date = "%Y-%m-%d"
 time = %H:%M:%S
+date-alt = "%a, %e %B %Y"
+time-alt = "%I:%M%p"
 
-format-prefix = ☕
+format-prefix = "now "
 format-prefix-foreground = ${colors.foreground-alt}
 
 label = %date% %time%
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 1
-warn-temperature = 60
-
-format = <label>
-format-warn = <label-warn>
-
-label = %temperature-c%
-label-warn = %temperature-c%!!
-label-warn-foreground = ${colors.foreground-warn}
 
 [settings]
 screenchange-reload = true
