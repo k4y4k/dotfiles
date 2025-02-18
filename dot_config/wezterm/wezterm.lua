@@ -38,6 +38,7 @@ local fontList = {
 }
 
 config.font = wezterm.font_with_fallback(fontList)
+config.warn_about_missing_glyphs = false
 
 -- NOTE: macos-only tweaks (retina vs regular LCD)
 if get_platform() == "macos" then
