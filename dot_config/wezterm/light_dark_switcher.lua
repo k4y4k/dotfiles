@@ -5,9 +5,15 @@ local module = {}
 -- specifically detect otherwise
 function module.is_host_light_theme()
   if wezterm.gui then
+    print("[light_dark_switcher] wezterm.gui OK")
     -- if wezterm is available and can detect such things:
     -- is it light theme in here?
-    return wezterm.gui.get_appearance():find("Light")
+
+    local appearance = wezterm.gui.get_appearance()
+
+    print("local `appearance` is " .. tostring(appearance))
+
+    return appearance:find("Light")
   end
 
   -- if wezterm is not available, or cannot find out, we'll default to
