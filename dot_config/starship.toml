@@ -4,21 +4,21 @@ add_newline = true
 
 # Define the order and format of the information in our prompt
 format = """\
-$username$directory\
+$shell$username$directory\
 $fill\
 $git_branch$git_commit$git_status$git_metrics$git_state\
-$fill $cmd_duration$all$package\
+$fill $all$package$cmd_duration\
 ${custom.git_config_email}
-$character"""
+$shlvl$character"""
 
 [username]
 disabled = false
 show_always = true
-format = '[󰥟 $user]($style) '
+format = '[$user]($style) '
 
 [character]
 # TODO: fail symbol?
-success_symbol = '[→](bold green)'
+success_symbol = '[❯](bold green)'
 
 [fill]
 symbol = "─"
@@ -40,7 +40,7 @@ symbol = " "
 format = "[ $symbol$branch(:$remote_branch) ]($style)"
 
 [package]
-disabled = true # Enable to output the current working directory's package version
+disabled = true                    # Enable to output the current working directory's package version
 format = "pkg [$version]($style) "
 display_private = true
 
@@ -59,3 +59,19 @@ style = "text"
 
 [nodejs]
 format = "[$symbol($version)]($style) "
+
+[shell]
+disabled = false
+fish_indicator = ""
+bash_indicator = '\$_ '
+# NOTE: switch the trailing space to the shell, so that this is invisible in regular (fish) usage
+format = "[$indicator]($style)"
+
+[shlvl]
+disabled = false
+format = '[$symbol]($style)'
+repeat = true
+symbol = '❯'
+repeat_offset = 1
+threshold = 0
+
