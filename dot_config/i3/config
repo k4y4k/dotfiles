@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Agave Nerd Font Mono 10
+font pango:GeistMono Nerd Font Mono 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -60,17 +60,11 @@ bindsym $mod+Return exec wezterm
 # kill focused window
 bindsym $mod+Shift+q kill
 
-set $barpink '#B30049'
-set $barbg '#070d0d'
-#set $barborder '#3D7AFD'
-#set $baryellow '#ffb52a'
+set $bartxt '#0bda51'
+set $barbg '#050f0c'
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run -fn 'Agave Nerd Font Mono:bold:pixelsize=16' -nb $barbg -sf $barpink -sb $barbg -nf '#bbbbbb'
-bindsym $mod+d exec dmenu_run -fn 'GeistMono Nerd Font Mono:bold:pixelsize=16' -nb $barbg -sf $barpink -sb $barbg -nf '#bbbbbb'
-
-# default dmenu
-# dmenu_run -nb '#222222' -sf '#eeeeee' -sb '#005577' -nf '#bbbbbb'
+bindsym $mod+d exec dmenu_run -fn 'GeistMono Nerd Font Mono:bold:pixelsize=16' -nb $barbg -sf $bartxt -sb $barbg -nf '#bbbbbb'
 
 # polybar for bar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh

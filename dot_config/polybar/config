@@ -17,15 +17,13 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
-background = #070d0d
-background-alt = #1c1c1c
-;foreground = ${xrdb:color7:#222}
-foreground = #B30049
-foreground-alt = #3D7AFD
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+background = #050f0c
+background-alt = #0a1f18
+foreground = #0bda51
+foreground-alt = #fa418b
+
+foreground-dim = #555
+foreground-warn = #ffb52a
 
 [bar/example]
 monitor = ${env:MONITOR:}
@@ -41,22 +39,21 @@ module-margin-left = 1
 module-margin-right = 1
 
 font-0 = "GeistMono Nerd Font Mono:style=Bold;4"
-; font-0 = "Agave Nerd Font Mono:style=Bold;4"
 font-1 = "Noto Color Emoji:scale=10;2"
 ; JP glyphs - otherwise no glyphs render
 font-2 = "Noto Sans CJK JP:style=Heavy;4"
 
 modules-left = i3
-modules-right = spotify filesystem pulseaudio memory cpu temperature wlan date
-
-tray-position = right
-tray-maxsize = 12
-tray-padding = 0
+modules-right = spotify filesystem pulseaudio memory cpu temperature wlan date tray
 
 scroll-up = "#i3.prev"
 scroll-down = "#i3.next"
 
 cursor-scroll = false
+
+[module/tray]
+type = internal/tray
+tray-spacing = 8px
 
 [module/spotify]
 type = custom/script
@@ -67,7 +64,6 @@ exec = python .config/polybar/spotify_status.py -t 999 -q
 ;control players (optional)
 click-left = playerctl --player=spotify play-pause
 click-right = playerctl --player=spotify next
-;click-left = playerctl --player=spotify previous
 
 # TODO: what if multiple outputs? so far it just uses the deafult 
 # (which is always the wrong one lmao)
@@ -75,10 +71,10 @@ click-right = playerctl --player=spotify next
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = <label-volume>
-label-volume = %{F#3D7AFD}%{F-} %percentage%%
+label-volume = %{F#fa418b}%{F-} %percentage%%
 label-volume-foreground = ${root.foreground}
 label-muted = MUTED!
-label-muted-foreground = #666
+label-muted-foreground = ${colors.foreground-dim}
 
 label-muted-font = 1
 
@@ -88,7 +84,7 @@ interval = 5
 
 mount-0 = /
 
-label-mounted = [%{F#3D7AFD}%mountpoint%%{F-}] %percentage_used%% (%free%)
+label-mounted = [%{F#fa418b}%mountpoint%%{F-}] %percentage_used%% (%free%)
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -140,17 +136,7 @@ type = internal/memory
 interval = 2
 format-prefix = "mem "
 format-prefix-foreground = ${colors.foreground-alt}
-label = %gb_used% / %gb_free% (%gb_total% phys, %gb_swap_used% swapon)
-
-[module/wlan]
-type = internal/network
-interface = wlp0s20f0u13u3
-interval = 3.0
-
-format-connected = %{F#3D7AFD}wifi%{F-} <label-connected>
-label-connected = ok
-
-format-disconnected = network not ok:(
+label = %gb_used% / %gb_free% (%gb_swap_used% / %swap_free%)
 
 [module/date]
 type = internal/date
@@ -167,14 +153,14 @@ label = %date% %time%
 [module/temperature]
 type = internal/temperature
 thermal-zone = 1
-warn-temperature = 80
+warn-temperature = 60
 
 format = <label>
 format-warn = <label-warn>
 
 label = %temperature-c%
-label-warn = %temperature-c% !
-label-warn-foreground = ${colors.secondary}
+label-warn = %temperature-c%!!
+label-warn-foreground = ${colors.foreground-warn}
 
 [settings]
 screenchange-reload = true
