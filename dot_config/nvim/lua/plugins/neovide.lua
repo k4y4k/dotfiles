@@ -35,7 +35,8 @@ if vim.g.neovide then
       vim.o.guifont = "RecMonoCasual Nerd Font Mono:h10:w-1"
     end
   else
-    vim.o.guifont = "RecMonoCasual Nerd Font Mono:h14:w-1"
+    -- (darwin)
+    vim.o.guifont = "Anomaly Mono" .. ":h15" .. ":w-0"
   end
 
   vim.g.neovide_window_blurred = true
