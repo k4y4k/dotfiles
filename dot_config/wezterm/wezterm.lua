@@ -32,6 +32,7 @@ end
 
 ---@type table
 local fontList = {
+  { family = "Maple Mono NF" },
   { family = "RecMonoCasual Nerd Font Mono" },
   { family = "Monaspace Argon", weight = "Medium" },
   "JetBrainsMono Nerd Font Mono",
