@@ -17,7 +17,7 @@ set-option -g set-titles on
 
 # SESSION:WINDOW:PANE PATH COMMAND
 # 0:1:1 /home/shakabra/ ls -a
-set-option -g set-titles-string ' #{session_id}:#{window_id}:#{pane_id}  #{pane_current_path} #{pane_current_command}' 
+set-option -g set-titles-string ' #{session_id}:#{window_id}:#{pane_id}  #{pane_current_path} #{pane_current_command}'
 
 # Set the window title to the current directory (when inside tmux)
 # set-option -g status-left "#(pwd)"  # Add the current directory to the status bar (optional)
@@ -30,7 +30,10 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
 set -g @plugin 'alexwforsythe/tmux-which-key'
+
+{{- if eq .chezmoi.os "linux" }}
 set -g @plugin 'akohlbecker/aw-watcher-tmux'
+{{- end}}
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'

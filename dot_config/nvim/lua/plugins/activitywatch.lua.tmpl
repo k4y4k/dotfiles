@@ -1,0 +1,8 @@
+{{- if eq .chezmoi.os "linux" }}
+return {
+  "lowitea/aw-watcher.nvim",
+  opts = {},
+}
+{{ else }}
+return {}
+{{- end }}
