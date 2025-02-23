@@ -1,0 +1,7 @@
+[".config/fish/functions"]
+type = "archive"
+url = "https://github.com/razzius/fish-functions/archive/refs/heads/main.zip"
+exact = true
+stripComponents = 2
+refreshPeriod = "168h"
+include = ["*/functions/**/*.fish"]
