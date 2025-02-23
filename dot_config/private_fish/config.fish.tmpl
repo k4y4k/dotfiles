@@ -3,9 +3,9 @@ set -gx EDITOR nvim
 set -gx DOTNET_CLI_TELEMETRY_OPTOUT true
 mise activate fish | source
 
-# Remove MOTD
-set -U fish_greeting
-
+function fish_greeting
+    echo "-- <>< --"
+end
 # COMMON TOP END
 
 {{- if eq .chezmoi.os "darwin" }}
