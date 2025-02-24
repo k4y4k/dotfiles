@@ -13,6 +13,11 @@ wk.add({
 })
 
 return {
+  -- Lua
+  {
+    "f-person/auto-dark-mode.nvim",
+    opts = {},
+  },
   { "dracula/vim", name = "dracula" },
 
   {
