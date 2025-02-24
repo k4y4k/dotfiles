@@ -71,28 +71,6 @@ return {
     end,
   },
 
-  {
-    -- wake up, samurai...
-    "maxmx03/fluoromachine.nvim",
-
-    config = function()
-      local fm = require("fluoromachine")
-
-      fm.setup({
-        glow = true,
-        theme = "fluoromachine",
-        transparent = false,
-      })
-
-      -- INVESTIGATE: lualine matches if this theme is selected, otherwise does whatever it does already
-      -- local lualine = require("lualine")
-
-      -- lualine.setup({ options = {
-      --   theme = "fluoromachine",
-      -- } })
-    end,
-  },
-
   { "rktjmp/lush.nvim", lazy = false },
 
   {
@@ -106,5 +84,5 @@ return {
     end,
   },
 
-  { "LazyVim/LazyVim", opts = { colorscheme = "oxocarbon" } },
+  { "LazyVim/LazyVim", opts = { colorscheme = "everforest" } },
 }
