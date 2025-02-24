@@ -2,15 +2,22 @@
 #!/bin/fish
 {{ else if eq .chezmoi.os "darwin" -}}
 #! /opt/homebrew/bin/fish
+
+set chezmoi_home /Users/$USER/.local/share/chezmoi
 {{ end -}}
 
+# if $chezmoi_home is empty... something is amiss
+if test -z $chezmoi_home
+    return 1
+end
+
 {{/* i want this script to run once an hour MAX - run_once hashes the template results and only runs when it changes */}}
-{{/* golang is... interesting. i dont hate it? this would become: Nov 12 2100, 11am */}}
-echo {{ now | date "Jan 2 2006, 3am" }}
+{{/* golang is... interesting. i dont hate it? this would become: Nov 12 2100, 1 (like 1pm but no pm) */}}
+echo {{ now | date "Jan 2 2006, 3" }}
 
 echo \n
-echo "removing chezmoi lazy lock"
-rm -f $(chezmoi source-path)/dot_config/nvim/lazy-lock.json
+echo "removing lock lazyvim.json from source"
+rm -f $chezmoi_home/dot_config/nvim/lazyvim.json
 
 echo \n
 echo "updating lazy"
@@ -18,5 +25,5 @@ echo "updating lazy"
 nvim --headless "+Lazy! sync" +qa
 
 echo \n
-echo "moving new lazy lock back to state"
-mv ~/.config/nvim/lazy-lock.json $(chezmoi source-path)/dot_config/nvim/lazy-lock.json
+echo "moving new lazyvim.json back to source"
+cp ~/.config/nvim/lazyvim.json $chezmoi_home/dot_config/nvim/
