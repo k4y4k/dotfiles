@@ -16,31 +16,31 @@ local function get_os()
   return osname or "windows"
 end
 
--- NOTE: this is how you skip noice and log bulletproofily
--- vim.api.nvim_echo(
---   { { "isGnome " .. tostring(isGnome) } },
---   true,
---   { verbose = true }
--- )
-
--- glyphs are 1 closer to each other (they have a spacing of -1)
 if vim.g.neovide then
-  if get_os() == "Linux" then
-    -- NOTE: GNOME scales neovide differently to i3wm
-    local is_gnome = tostring(os.getenv("DESKTOP_SESSION")) == "gnome" or nil
+  if get_os():lower() == "linux" then
+    -- [INFO] you're not gonna believe this but running 3+ wms leads to issues
+    -- first, lets get our bearings
+    local get_desktop = tostring(os.getenv("DESKTOP_SESSION")):lower()
 
-    if is_gnome then
-      vim.o.guifont = "RecMonoCasual Nerd Font Mono:h12:w-1"
+    -- print("local `get_desktop` is " .. get_desktop)
+
+    local is_gnome = get_desktop == "gnome"
+    local is_xfce = get_desktop == "xfce"
+
+    if is_gnome or is_xfce then
+      vim.o.guifont = "Maple Mono" .. ":h12" .. ":w-1"
+      vim.opt.linespace = -2
     else -- (i3)
-      vim.o.guifont = "RecMonoCasual Nerd Font Mono:h10:w-1"
+      vim.o.guifont = "Maple Mono" .. ":h10" .. ":w-1"
     end
+
+    vim.g.neovide_hide_mouse_when_typing = true
   else
     -- (darwin)
     vim.o.guifont = "Anomaly Mono" .. ":h15" .. ":w-0"
   end
 
   vim.g.neovide_window_blurred = true
-
   vim.g.neovide_floating_blur_amount_x = 2.0
   vim.g.neovide_floating_blur_amount_y = 2.0
 

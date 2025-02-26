@@ -67,9 +67,10 @@ config.tab_max_width = 99
 config.window_decorations = "NONE"
 
 if string.lower(tostring(get_platform())) == "linux" then
-  local is_gnome = tostring(os.getenv("DESKTOP_SESSION")) == "gnome" or nil
+  -- [INFO] is not GNOME, xfce, ...
+  local is_i3 = tostring(os.getenv("DESKTOP_SESSION")) == nil
 
-  if is_gnome then
+  if not is_i3 then
     config.window_decorations = "RESIZE"
   end
 end
