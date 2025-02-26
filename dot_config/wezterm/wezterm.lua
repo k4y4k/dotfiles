@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 local choose_theme = require("choose_theme")
 local config = wezterm.config_builder()
-local light_dark_switcher = require("light_dark_switcher")
+local get_host_theme = require("get_host_theme")
 local style_debug = require("style_debug")
 local battery_segment = require("battery_segment")
 local user_segment = require("user_segment")
@@ -125,7 +125,7 @@ wezterm.on("update-status", function(window, _)
   ---@diagnostic disable-next-line: unbalanced-assignments - It seems to work
   local gradient_to, gradient_from = bg
 
-  if light_dark_switcher.is_host_light_theme() then
+  if get_host_theme.get_host_theme() then
     gradient_from = gradient_to:darken(0.2):adjust_hue_fixed(45)
   else
     gradient_from = gradient_to:lighten(0.1):adjust_hue_fixed(-45)

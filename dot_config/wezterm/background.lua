@@ -1,9 +1,9 @@
-local th = require("light_dark_switcher")
+local th = require("get_host_theme")
 
 local module = {}
 
 function module.choose_bg_image()
-  local is_light = th.is_host_light_theme()
+  local is_light = th.get_host_theme()
 
   ---@type table
   local background

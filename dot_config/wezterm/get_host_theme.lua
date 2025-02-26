@@ -1,11 +1,11 @@
 local wezterm = require("wezterm")
 local module = {}
 
--- Is the host OS in light mode? defaults to yes unless we can
--- specifically detect otherwise
-function module.is_host_light_theme()
+-- [INFO] get whether the host is light or dark theme.
+-- defaults to dark if we cant tell
+function module.get_host_theme()
   if wezterm.gui then
-    print("[light_dark_switcher] wezterm.gui OK")
+    print("[get_host_theme] wezterm.gui OK")
     -- if wezterm is available and can detect such things:
     -- is it light theme in here?
 
@@ -13,12 +13,18 @@ function module.is_host_light_theme()
 
     print("local `appearance` is " .. tostring(appearance))
 
-    return appearance:find("Light")
+    local is_light = appearance:find("Light") or nil
+
+    if is_light then
+      return true
+    end
+
+    return false
   end
 
   -- if wezterm is not available, or cannot find out, we'll default to
-  -- light theme anyway
-  return true
+  -- dark theme
+  return false
 end
 
 return module

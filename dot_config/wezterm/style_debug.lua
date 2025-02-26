@@ -1,5 +1,5 @@
 local wezterm = require("wezterm")
-local light_dark_switcher = require("light_dark_switcher")
+local ght = require("get_host_theme")
 local ct = require("choose_theme")
 local module = {}
 
@@ -10,7 +10,7 @@ local module = {}
 --- 🖌️"light"|"dark"
 ---@return string
 function module.theme_tab()
-  local check = light_dark_switcher.is_host_light_theme()
+  local check = ght.get_host_theme()
   ---@type string
   local res
 
