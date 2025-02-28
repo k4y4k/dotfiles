@@ -1,6 +1,10 @@
 # COMMON TOP START
 set -gx EDITOR nvim
+
 set -gx DOTNET_CLI_TELEMETRY_OPTOUT true
+# Fix "You must install .NET to run this application"
+set -gx DOTNET_ROLL_FORWARD LatestMajor
+
 mise activate fish | source
 
 function fish_greeting
@@ -29,6 +33,7 @@ starship init fish | source
 thefuck --alias | source
 
 export PATH="$HOME/.bin/:$PATH"
+export PATH="$HOME/.dotnet/tools/:$PATH"
 
 zoxide init fish | source
 # COMMON END END
