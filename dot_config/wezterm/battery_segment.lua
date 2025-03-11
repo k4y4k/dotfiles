@@ -4,10 +4,10 @@ local module = {}
 -- NOTE: I don't own a machine that has 2 batteries.
 -- They could exist I spose but this tab assumes the first battery
 -- is the important one
-local battery = wezterm.battery_info()[1]
 
 ---@return string
 local function maybe_add_estimate()
+  local battery = wezterm.battery_info()[1]
   -- Could be time to 100% or time to 0%. Context specific.
   --- @type string
   local time = ""
@@ -53,6 +53,7 @@ end
 ---
 --- @return string
 local function battery_segment()
+  local battery = wezterm.battery_info()[1]
   if not battery then
     return ""
   end
