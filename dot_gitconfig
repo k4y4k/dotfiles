@@ -14,7 +14,22 @@
   editor = nvim
 [init]
   defaultBranch = main
-[credential]
-  helper = wincred
 [diff]
-  external = difft --tab-width 2 --missing-as-empty --width 120
+  ; external = difft 
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[column]
+  ui = auto
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[help]
+  autocorrect = prompt
+[commit]
+  verbose = true
+[rerere]
+  enabled = true
+  autoupdate = true
